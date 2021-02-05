@@ -1,0 +1,50 @@
+.navbar {
+  grid-row: span 2;
+  // background: linear-gradient(
+  //   176.02deg,
+  //   #2d9cdb -2.11%,
+  //   #5876eb 67.24%,
+  //   #8860d0 101.47%
+  // );
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #0086c2;
+}
+
+.navbar__header {
+  display: flex;
+  align-items: center;
+  background-color: #0078ae;
+}
+
+.navbar__header-text {
+}
+
+.navbar__logo {
+  width: 140px;
+}
+
+.navbar__links {
+  list-style: none;
+  flex: 1;
+}
+.navbar__link {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+
+  span {
+  }
+}
+
+.navbar__link-icon {
+}
+
+.active {
+  background-color: white;
+  color: #0086c2;
+}
