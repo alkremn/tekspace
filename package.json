@@ -1,0 +1,11 @@
+{
+  "name": "tekspace",
+  "version": "1.0.0",
+  "description": "space for Tech support agents",
+  "main": "server.js",
+  "author": "Alexey Kremnev",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm start --prefix client"
+  }
+}
