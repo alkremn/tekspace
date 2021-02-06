@@ -19,12 +19,12 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <div className='navbar__header'>
-        <Avatar
+        {/* <Avatar
           name={`${users[1].firstName} ${users[1].lastName}`}
           src={users[1].photoUrl}
           size='sm'
         />
-        <h2 className='navbar__header-text'>{users[1].displayName}</h2>
+        <h2 className='navbar__header-text'>{users[1].displayName}</h2> */}
       </div>
       <ul className='navbar__links'>
         <li>

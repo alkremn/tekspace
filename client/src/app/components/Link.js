@@ -5,7 +5,7 @@ const Link = ({ Icon, title, to }) => {
   return (
     <NavLink to={to} className='navbar__link' activeClassName='active'>
       <Icon className='navbar__link-icon' />
-      <span>{title}</span>
+      {/* <span>{title}</span> */}
     </NavLink>
   );
 };
