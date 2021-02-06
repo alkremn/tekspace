@@ -1,0 +1,43 @@
+.solutionSearch {
+  grid-column: 2 / -1;
+  background-color: white;
+  display: flex;
+  margin-right: 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.solutionSearch__left {
+  background-color: #e3e5e79a;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  margin: 10px 40px 10px;
+  width: 50%;
+}
+.solutionSearch__icon {
+  width: 20px;
+  height: 20px;
+  margin: 0 20px;
+}
+
+.solutionSearch__left > input {
+  width: 90%;
+  height: 40px;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+}
+.solutionSearch__left > input:focus {
+  outline-width: 0;
+}
+
+.solutionSearch__left > button {
+  display: none;
+}
+
+.createButton {
+  margin-right: 60px;
+}

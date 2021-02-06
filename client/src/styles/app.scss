@@ -20,12 +20,18 @@ h4 {
 .app {
   display: grid;
   background-color: #ecf0f3;
-  grid-template-columns: min-content auto;
+  grid-template-columns: 130px auto;
   grid-template-rows: 50px auto;
   row-gap: 10px;
   height: 100vh;
   transition: all 0.5s ease;
 }
 
+// Components
 @import './components/navbar';
 @import './components/header';
+@import './components/button';
+@import './components/solutionSearch';
+
+// Pages
+@import './pages/solutionPage';
