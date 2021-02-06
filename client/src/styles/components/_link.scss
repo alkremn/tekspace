@@ -1,0 +1,33 @@
+.navbar__link {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 5px 5px;
+  margin: 10px 10px;
+  border-radius: 4px;
+
+  &:hover {
+    opacity: 0.8;
+    background-color: #0078ae;
+  }
+  &.active:hover {
+    opacity: 1;
+    background-color: white;
+  }
+
+  span {
+    font-weight: normal;
+  }
+}
+
+.navbar__link-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.active {
+  background-color: white;
+  color: #0086c2;
+}

@@ -19,12 +19,13 @@ h4 {
 }
 .app {
   display: grid;
-  background-color: #f6f8fb;
+  background-color: #ecf0f3;
   grid-template-columns: min-content auto;
-  grid-template-rows: 70px auto;
-  gap: 10px;
+  grid-template-rows: 50px auto;
+  row-gap: 10px;
   height: 100vh;
   transition: all 0.5s ease;
 }
 
 @import './components/navbar';
+@import './components/header';
