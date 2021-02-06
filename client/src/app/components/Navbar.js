@@ -22,7 +22,7 @@ const Navbar = () => {
         <Avatar
           name={`${users[1].firstName} ${users[1].lastName}`}
           src={users[1].photoUrl}
-          size='md'
+          size='sm'
         />
         <h2 className='navbar__header-text'>{users[1].displayName}</h2>
       </div>

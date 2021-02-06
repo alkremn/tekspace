@@ -17,17 +17,23 @@
 .navbar__header {
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #0078ae;
+  width: 100%;
+  padding: 15px 0;
 }
 
 .navbar__header-text {
+  color: white;
+  margin-left: 10px;
 }
 
 .navbar__logo {
-  width: 140px;
+  width: 110px;
 }
 
 .navbar__links {
+  margin-top: 20px;
   list-style: none;
   flex: 1;
 }
@@ -36,12 +42,28 @@
   color: white;
   display: flex;
   align-items: center;
+  padding: 2px 5px;
+  margin: 10px 10px;
+  border-radius: 4px;
+
+  &:hover {
+    opacity: 0.8;
+    background-color: #0078ae;
+  }
+  &.active:hover {
+    opacity: 1;
+    background-color: white;
+  }
 
   span {
+    font-weight: normal;
   }
 }
 
 .navbar__link-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
 .active {
