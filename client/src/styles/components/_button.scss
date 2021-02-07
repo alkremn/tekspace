@@ -11,21 +11,23 @@
   line-height: 1.2;
   cursor: pointer;
   transition: all 0.2s ease-in;
+
+  &:hover {
+    opacity: 0.8;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
+    transform: translateY(1px);
+  }
+  &:disabled {
+    opacity: 0.6;
+  }
 }
 
 .primary {
   color: #fff;
   background-color: #3d8ee1;
-}
-
-.button:hover {
-  opacity: 0.8;
-}
-
-.button:focus {
-  outline: none;
-}
-.button:active {
-  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25);
-  transform: translateY(1px);
 }

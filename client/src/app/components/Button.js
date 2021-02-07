@@ -4,6 +4,7 @@ const Button = ({
   className,
   color,
   children,
+  type,
   primary,
   onClick,
   disabled,
@@ -15,6 +16,7 @@ const Button = ({
       className={`button ${className} ${primary ? 'primary' : ''}`}
       onClick={onClick}
       disabled={disabled}
+      type={type}
       style={{
         width: `${width}px`,
         height: `${height ?? height}px`,

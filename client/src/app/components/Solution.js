@@ -1,6 +1,7 @@
 import React from 'react';
-import { GrEdit } from 'react-icons/gr';
-import { RiDeleteBinLine } from 'react-icons/ri';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { IconButton } from '@material-ui/core';
 
 const Solution = ({ history, solution, deleteHandler }) => {
   return (
@@ -8,21 +9,23 @@ const Solution = ({ history, solution, deleteHandler }) => {
       <div className='solution__header'>
         <h1 className='solution__title'>{solution.title}</h1>
         <div className='solution__header-links'>
-          <button
+          <IconButton
             onClick={() => history.push(`/manageSolution/${solution._id}`)}
           >
-            <GrEdit className='solution__header-icons' />
-          </button>
-          <button onClick={() => deleteHandler(solution._id)}>
-            <RiDeleteBinLine className='solution__header-icons' />
-          </button>
+            <EditIcon className='solution__header-icons' />
+          </IconButton>
+          <IconButton onClick={() => deleteHandler(solution._id)}>
+            <DeleteIcon className='solution__header-icons' />
+          </IconButton>
         </div>
       </div>
-      <textarea
+      <div
         className='solution__description'
-        value={solution.description}
+        dangerouslySetInnerHTML={{
+          __html: solution.description,
+        }}
         readOnly
-      ></textarea>
+      ></div>
     </div>
   );
 };

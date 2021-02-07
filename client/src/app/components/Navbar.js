@@ -2,8 +2,6 @@ import React from 'react';
 import Link from './Link';
 import logo from '../../assets/logo-inverted.svg';
 
-// temp data
-import { users } from '../../data/users';
 
 //icons
 import { RiDashboardLine } from 'react-icons/ri';
@@ -18,16 +16,10 @@ const Navbar = () => {
     <div className='navbar'>
       <div className='navbar__header'>
         <GiMicroscope className='navbar__icon' alt='logo' />
-        {/* <Avatar
-          name={`${users[1].firstName} ${users[1].lastName}`}
-          src={users[1].photoUrl}
-          size='sm'
-        />
-        <h2 className='navbar__header-text'>{users[1].displayName}</h2> */}
       </div>
       <ul className='navbar__links'>
         <li>
-          <Link to='/dashboard' title='Dashboard' Icon={RiDashboardLine} />
+            <Link to='/dashboard' title='Dashboard' Icon={RiDashboardLine} />
         </li>
         <li>
           <Link to='/team' title='Team' Icon={RiTeamFill} />

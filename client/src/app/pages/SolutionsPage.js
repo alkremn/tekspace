@@ -9,7 +9,7 @@ import TitleList from '../components/TitleList';
 import SolutionSearch from '../components/SolutionSearch';
 import Solution from '../components/Solution';
 
-const SolutionPage = () => {
+const SolutionPage = ({ history }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [solutions, setSolutions] = useState([]);
   const [selectedSolution, setSelectedSolution] = useState(null);
@@ -62,7 +62,9 @@ const SolutionPage = () => {
           action={selectedSolutionHandler}
         />
       )}
-      {selectedSolution && <Solution solution={selectedSolution} />}
+      {selectedSolution && (
+        <Solution solution={selectedSolution} history={history} />
+      )}
     </div>
   );
 };
