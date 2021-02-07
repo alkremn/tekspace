@@ -5,8 +5,8 @@ import '../../styles/app.scss';
 import { Route, Switch } from 'react-router-dom';
 
 // Components
-import Navbar from '../components/Navbar';
-import Header from '../components/Header';
+import Navbar from '../components/common/Navbar';
+import Header from '../components/common/Header';
 
 // Pages
 import DashboardPage from '../pages/DashboardPage';
@@ -15,7 +15,6 @@ import SolutionsPage from '../pages/SolutionsPage';
 import SecondPage from '../pages/SecondPage';
 import ChatPage from '../pages/ChatPage';
 import SettingsPage from '../pages/SettingsPage';
-import SolutionPage from '../pages/SolutionPage';
 
 function App() {
   return (
@@ -24,10 +23,6 @@ function App() {
       <Header />
       <Switch>
         <Route path='/dashboard' component={DashboardPage} />
-        <Route
-          path={['/createSolution', '/manageSolution/:id']}
-          component={SolutionPage}
-        />
         <Route path='/team' component={TeamPage} />
         <Route path='/solutions' component={SolutionsPage} />
         <Route path='/second' component={SecondPage} />

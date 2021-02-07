@@ -1,8 +1,6 @@
 import React from 'react';
 import Link from './Link';
-import logo from '../../assets/logo-inverted.svg';
-
-
+import logo from '../../../assets/logo-inverted.svg';
 //icons
 import { RiDashboardLine } from 'react-icons/ri';
 import { GiMicroscope, GiEscalator } from 'react-icons/gi';
@@ -19,7 +17,7 @@ const Navbar = () => {
       </div>
       <ul className='navbar__links'>
         <li>
-            <Link to='/dashboard' title='Dashboard' Icon={RiDashboardLine} />
+          <Link to='/dashboard' title='Dashboard' Icon={RiDashboardLine} />
         </li>
         <li>
           <Link to='/team' title='Team' Icon={RiTeamFill} />

@@ -8,6 +8,8 @@
   margin: 0 10px;
 }
 
-@import '../components/titleList';
-@import '../components/titleListItem';
-@import '../components/solution';
+@import '../components/solutions/titleList';
+@import '../components/solutions/titleListItem';
+@import '../components/solutions/solutionSearch';
+@import '../components/solutions/solution';
+@import '../components/solutions/solutionForm';

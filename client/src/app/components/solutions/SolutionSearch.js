@@ -1,9 +1,8 @@
 import React from 'react';
 import { BiSearch } from 'react-icons/bi';
-import { NavLink } from 'react-router-dom';
-import Button from './Button';
+import Button from '../common/Button';
 
-const SolutionSearch = ({ searchValue, onChange }) => {
+const SolutionSearch = ({ searchValue, onChange, handleCreateOpen }) => {
   return (
     <div className='solutionSearch'>
       <div className='solutionSearch__left'>
@@ -16,11 +15,9 @@ const SolutionSearch = ({ searchValue, onChange }) => {
         />
         <button type='button'>Search</button>
       </div>
-      <NavLink to='/createSolution'>
-        <Button primary className='createButton'>
-          Create
-        </Button>
-      </NavLink>
+      <Button primary className='createButton' onClick={handleCreateOpen}>
+        Create
+      </Button>
     </div>
   );
 };
