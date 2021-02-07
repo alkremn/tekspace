@@ -8,16 +8,17 @@ import { solutions as solutionsData } from '../../data/solutions';
 import TitleList from '../components/solutions/TitleList';
 import SolutionSearch from '../components/solutions/SolutionSearch';
 import Solution from '../components/solutions/Solution';
-import SolutionFormPage from '../components/solutions/SolutionForm';
+import SolutionForm from '../components/solutions/SolutionForm';
 
 const SolutionPage = ({ history }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [solutions, setSolutions] = useState([]);
+  const [solutions, setSolutions] = useState(solutionsData);
   const [selectedSolution, setSelectedSolution] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [formOpen, setFormOpen] = useState(false);
 
   const selectedCategoryHandler = categoryId => {
+    setFormOpen(false);
     setSelectedCategory(categoryId);
     setSelectedSolution(null);
     setSearchTerm('');
@@ -27,6 +28,7 @@ const SolutionPage = ({ history }) => {
   };
 
   const selectedSolutionHandler = solutionId => {
+    setFormOpen(false);
     setSelectedSolution(
       solutionsData.find(solution => solution._id === solutionId)
     );
@@ -34,6 +36,7 @@ const SolutionPage = ({ history }) => {
 
   const searchHandler = event => {
     const searchInput = event.target.value;
+    setFormOpen(false);
     setSearchTerm(searchInput);
     setSelectedCategory(null);
     setSelectedSolution(null);
@@ -46,8 +49,19 @@ const SolutionPage = ({ history }) => {
     );
   };
 
-  const handleCreateOpen = () => {
-    setIsCreateOpen(!isCreateOpen);
+  const handleFormOpen = () => {
+    setSelectedCategory(null);
+    setSelectedSolution(null);
+    setSolutions(solutionsData);
+    setFormOpen(true);
+  };
+
+  const handleFormClose = () => {
+    setFormOpen(false);
+  };
+
+  const handleModifyOpen = () => {
+    setFormOpen(true);
   };
 
   return (
@@ -62,22 +76,26 @@ const SolutionPage = ({ history }) => {
       <SolutionSearch
         searchValue={searchTerm}
         onChange={searchHandler}
-        handleCreateOpen={handleCreateOpen}
+        handleFormOpen={handleFormOpen}
       />
-      {solutions.length > 0 && (
-        <TitleList
-          items={solutions}
-          title='Solutions'
-          active={selectedSolution?._id}
-          action={selectedSolutionHandler}
-        />
-      )}
-      {!isCreateOpen ? (
+      <TitleList
+        items={solutions}
+        title='Solutions'
+        active={selectedSolution?._id}
+        action={selectedSolutionHandler}
+      />
+      {!formOpen ? (
         selectedSolution && (
-          <Solution solution={selectedSolution} history={history} />
+          <Solution
+            solution={selectedSolution}
+            handleModifyOpen={handleModifyOpen}
+          />
         )
       ) : (
-        <SolutionFormPage />
+        <SolutionForm
+          handleFormClose={handleFormClose}
+          solution={selectedSolution}
+        />
       )}
     </div>
   );

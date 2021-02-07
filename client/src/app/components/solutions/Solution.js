@@ -3,15 +3,13 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { IconButton } from '@material-ui/core';
 
-const Solution = ({ history, solution, deleteHandler }) => {
+const Solution = ({ solution, deleteHandler, handleModifyOpen }) => {
   return (
     <div className='solution'>
       <div className='solution__header'>
         <h1 className='solution__title'>{solution.title}</h1>
         <div className='solution__header-links'>
-          <IconButton
-            onClick={() => history.push(`/manageSolution/${solution._id}`)}
-          >
+          <IconButton onClick={handleModifyOpen}>
             <EditIcon className='solution__header-icons' />
           </IconButton>
           <IconButton onClick={() => deleteHandler(solution._id)}>

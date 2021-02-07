@@ -41,12 +41,9 @@ const BlueRadio = withStyles({
   checked: {},
 })(props => <Radio color='default' {...props} />);
 
-const SolutionFormPage = () => {
-  const [title] = useState();
-  //match.params.id ? 'Edit Solution' : 'Create Solution'
-  const [isNew, setIsNew] = useState(false);
+const SolutionForm = ({ handleFormClose, solution }) => {
+  const [newCategory, setNewCategory] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [selectedSolution, setSelectedSolution] = useState(null);
 
   // useEffect(() => {
   //   if (match.params.id) {
@@ -72,8 +69,8 @@ const SolutionFormPage = () => {
   // Formik
   const formik = useFormik({
     initialValues: {
-      category: selectedSolution ? selectedSolution.category : '',
-      title: selectedSolution ? selectedSolution.title : '',
+      category: solution !== null ? solution.category : '',
+      title: solution !== null ? solution.title : '',
     },
     validationSchema: validationSchema,
     onSubmit: values => {
@@ -88,20 +85,20 @@ const SolutionFormPage = () => {
         createdBy: '6009e1e40553527dd39639ab',
       };
       solutions.push(newSolution);
-      //history.push('/solutions');
     },
   });
 
   const handleRadio = isNew => {
     formik.values.category = '';
     formik.errors.category = '';
-    setIsNew(isNew);
+    setNewCategory(newCategory);
   };
 
   return (
-    // <div className='solutionForm'>
-    <div className='solutionForm__container'>
-      <h1 className='solutionForm__title'>{title}</h1>
+    <div className='solutionForm'>
+      <h1 className='solutionForm__title'>
+        {solution == null ? 'New Solution' : 'Modify Solution'}
+      </h1>
       <form
         action=''
         className='solutionForm__form'
@@ -112,11 +109,11 @@ const SolutionFormPage = () => {
           <ul className='form__categoryList'>
             <li>
               <BlueRadio
-                checked={!isNew}
+                checked={!newCategory}
                 onChange={() => handleRadio(false)}
                 name='radio-button-demo'
               />
-              {!isNew ? (
+              {!newCategory ? (
                 <FormControl style={{ width: '70%' }}>
                   <Select
                     id='category'
@@ -147,11 +144,11 @@ const SolutionFormPage = () => {
             </li>
             <li>
               <BlueRadio
-                checked={isNew}
+                checked={newCategory}
                 onChange={() => handleRadio(true)}
                 name='radio-button-demo'
               />
-              {isNew ? (
+              {newCategory ? (
                 <FormControl style={{ width: '70%' }}>
                   <TextField
                     id='category'
@@ -209,18 +206,13 @@ const SolutionFormPage = () => {
           >
             Save
           </Button>
-          <Button
-            title='Cancel'
-            titleColor='black'
-            //onClick={e => history.push('/solutions')}
-          >
+          <Button title='Cancel' titleColor='black' onClick={handleFormClose}>
             Cancel
           </Button>
         </div>
       </form>
     </div>
-    // </div>
   );
 };
 
-export default SolutionFormPage;
+export default SolutionForm;

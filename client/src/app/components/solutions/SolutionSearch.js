@@ -2,7 +2,7 @@ import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 import Button from '../common/Button';
 
-const SolutionSearch = ({ searchValue, onChange, handleCreateOpen }) => {
+const SolutionSearch = ({ searchValue, onChange, handleFormOpen }) => {
   return (
     <div className='solutionSearch'>
       <div className='solutionSearch__left'>
@@ -15,7 +15,12 @@ const SolutionSearch = ({ searchValue, onChange, handleCreateOpen }) => {
         />
         <button type='button'>Search</button>
       </div>
-      <Button primary className='createButton' onClick={handleCreateOpen}>
+      <Button
+        primary
+        className='createButton'
+        onClick={handleFormOpen}
+        height='35'
+      >
         Create
       </Button>
     </div>
