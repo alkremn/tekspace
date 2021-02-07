@@ -1,52 +1,108 @@
 import React, { useState } from 'react';
-
-// Data
 import { categories } from '../../data/categories';
-import { solutions as solutionsData } from '../../data/solutions';
+// Editor imports
+import { EditorState, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import Button from '../components/Button';
 
-// Components
-import TitleList from '../components/TitleList';
-import SolutionSearch from '../components/SolutionSearch';
-import Solution from '../components/Solution';
+import {
+  FormControl,
+  TextField,
+  Select,
+  MenuItem,
+  FormHelperText,
+  InputLabel,
+} from '@material-ui/core';
 
-const SolutionPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [solutions, setSolutions] = useState([]);
-  const [selectedSolution, setSelectedSolution] = useState(null);
+const SolutionPage = ({ match, history }) => {
+  const [title] = useState(
+    match.params.id ? 'Edit Solution' : 'Create Solution'
+  );
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const [category, setCategory] = useState('');
 
-  const selectedCategoryHandler = categoryId => {
-    setSelectedCategory(categoryId);
-    setSelectedSolution(null);
-    setSolutions(
-      solutionsData.filter(solution => solution.categoryId === categoryId)
-    );
+  const handleChange = event => {
+    setCategory(event.target.value);
+    console.log(category);
   };
 
-  const selectedSolutionHandler = solutionId => {
-    setSelectedSolution(
-      solutionsData.find(solution => solution._id === solutionId)
-    );
+  const handleEditorState = newState => {
+    setEditorState(newState);
   };
+
+  const handleSave = () => {};
 
   return (
-    <div className='solutionPage'>
-      <TitleList
-        items={categories}
-        title='Categories'
-        active={selectedCategory}
-        action={selectedCategoryHandler}
-        isCategories
-      />
-      <SolutionSearch />
-      {solutions.length > 0 && (
-        <TitleList
-          items={solutions}
-          title='Solutions'
-          active={selectedSolution?._id}
-          action={selectedSolutionHandler}
-        />
-      )}
-      {selectedSolution && <Solution solution={selectedSolution} />}
+    <div className='solutionForm'>
+      <div className='solutionForm__container'>
+        <h1 className='solutionForm__title'>{title}</h1>
+        <form action='' className='solutionForm__form'>
+          <div className='form__category'>
+            <FormControl style={{ width: '30%' }}>
+              <InputLabel id='demo-simple-select-readonly-label'>
+                Select Category
+              </InputLabel>
+              <Select value={category} onChange={handleChange}>
+                <MenuItem value=''>
+                  <em>None</em>
+                </MenuItem>
+                {categories &&
+                  categories.map(category => (
+                    <MenuItem key={category._id} value={category._id}>
+                      {category.title}
+                    </MenuItem>
+                  ))}
+              </Select>
+              <FormHelperText>Category is required</FormHelperText>
+            </FormControl>
+            <div className='solutionForm__divider'>
+              <span>or</span>
+            </div>
+            <FormControl style={{ width: '40%' }}>
+              <TextField
+                id='categoryInput'
+                label='Category'
+                variant='outlined'
+                size='small'
+              />
+            </FormControl>
+          </div>
+          <FormControl className='form__title'>
+            <TextField
+              id='title'
+              label='Title'
+              variant='outlined'
+              size='small'
+            />
+          </FormControl>
+          <Editor
+            className='editor'
+            editorState={editorState}
+            wrapperClassName='editor__wrapper'
+            editorClassName='editor__editorDiv'
+            toolbarClassName='editor__toolbar'
+            onEditorStateChange={handleEditorState}
+          />
+          <div className='form__buttons'>
+            <Button
+              className='form__saveButton'
+              title='Save'
+              primary
+              onClick={e => handleSave(e)}
+            >
+              Save
+            </Button>
+            <Button
+              title='Cancel'
+              titleColor='black'
+              onClick={e => history.push('/solutions')}
+            >
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

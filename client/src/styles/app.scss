@@ -3,6 +3,19 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+html {
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgray;
+    border-radius: 2rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: white;
+  }
+}
 h1,
 h2,
 h3 {
@@ -23,7 +36,8 @@ h4 {
   grid-template-columns: 80px auto;
   grid-template-rows: 50px auto;
   row-gap: 10px;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   transition: all 0.5s ease;
 }
 
@@ -34,4 +48,5 @@ h4 {
 @import './components/solutionSearch';
 
 // Pages
+@import './pages/solutionsPage';
 @import './pages/solutionPage';

@@ -11,10 +11,11 @@ import Header from '../components/Header';
 // Pages
 import DashboardPage from '../pages/DashboardPage';
 import TeamPage from '../pages/TeamPage';
-import SolutionPage from '../pages/SolutionPage';
+import SolutionsPage from '../pages/SolutionsPage';
 import SecondPage from '../pages/SecondPage';
 import ChatPage from '../pages/ChatPage';
 import SettingsPage from '../pages/SettingsPage';
+import SolutionPage from '../pages/SolutionPage';
 
 function App() {
   return (
@@ -23,8 +24,12 @@ function App() {
       <Header />
       <Switch>
         <Route path='/dashboard' component={DashboardPage} />
+        <Route
+          path={['/createSolution', '/manageSolution/:id']}
+          component={SolutionPage}
+        />
         <Route path='/team' component={TeamPage} />
-        <Route path='/solutions' component={SolutionPage} />
+        <Route path='/solutions' component={SolutionsPage} />
         <Route path='/second' component={SecondPage} />
         <Route path='/chat' component={ChatPage} />
         <Route path='/settings' component={SettingsPage} />

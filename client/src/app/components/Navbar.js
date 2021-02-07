@@ -2,14 +2,12 @@ import React from 'react';
 import Link from './Link';
 import logo from '../../assets/logo-inverted.svg';
 
-import { Avatar } from '@chakra-ui/react';
-
 // temp data
 import { users } from '../../data/users';
 
 //icons
 import { RiDashboardLine } from 'react-icons/ri';
-import { GiEscalator } from 'react-icons/gi';
+import { GiMicroscope, GiEscalator } from 'react-icons/gi';
 import { RiTeamFill } from 'react-icons/ri';
 import { ImBooks } from 'react-icons/im';
 import { BsChatDotsFill } from 'react-icons/bs';
@@ -19,6 +17,7 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <div className='navbar__header'>
+        <GiMicroscope className='navbar__icon' alt='logo' />
         {/* <Avatar
           name={`${users[1].firstName} ${users[1].lastName}`}
           src={users[1].photoUrl}

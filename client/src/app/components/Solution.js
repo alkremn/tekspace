@@ -21,6 +21,7 @@ const Solution = ({ history, solution, deleteHandler }) => {
       <textarea
         className='solution__description'
         value={solution.description}
+        readOnly
       ></textarea>
     </div>
   );
