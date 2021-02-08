@@ -1,0 +1,39 @@
+.case {
+  width: 90%;
+  max-width: 300px;
+  padding: 20px 25px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(6, 8, 9, 0.16);
+  span {
+    font-size: 12px;
+    font-style: italic;
+  }
+}
+
+.case__title {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.case__createdBy {
+  font-size: x-small;
+  display: flex;
+  align-items: center;
+}
+
+.draggable {
+  cursor: url('../../../assets/icons/Grab.cur'), auto !important;
+  cursor: grab;
+}
+
+.new_case {
+  background-color: #dd3333c0;
+}
+.inProgress_case {
+  background-color: #df9604;
+}
+.complete_case {
+  background-color: #26a65b;
+}

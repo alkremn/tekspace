@@ -91,7 +91,7 @@ const SolutionForm = ({ handleFormClose, solution }) => {
   const handleRadio = isNew => {
     formik.values.category = '';
     formik.errors.category = '';
-    setNewCategory(newCategory);
+    setNewCategory(isNew);
   };
 
   return (
