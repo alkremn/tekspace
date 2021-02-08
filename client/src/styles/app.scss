@@ -30,7 +30,12 @@ h4 {
   font-weight: 400;
   color: rgb(100, 100, 100);
 }
+
 .app {
+  transition: all 0.5s ease;
+  height: 100vh;
+}
+.content {
   display: grid;
   background-color: #f7f9fa;
   grid-template-columns: 80px auto;
@@ -47,6 +52,7 @@ h4 {
 @import './components/common/button';
 
 // Pages
+@import './pages/loginPage';
 @import './pages/solutionsPage';
 @import './pages/secondPage';
 @import './pages/chatPage';
