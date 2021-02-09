@@ -1,6 +1,7 @@
 import React from 'react';
 import { callCountData } from '../../data/callCountData';
-import { Line } from 'react-chartjs-2';
+import { callsPerAgent } from '../../data/agentCallsCountData';
+import { Line, Doughnut } from 'react-chartjs-2';
 
 const options = {
   title: {
@@ -23,6 +24,9 @@ const OverviewPage = () => {
           data={callCountData}
           options={options}
         />
+      </div>
+      <div className='overview__callsPerAgent'>
+        <Doughnut data={callsPerAgent} />
       </div>
     </div>
   );

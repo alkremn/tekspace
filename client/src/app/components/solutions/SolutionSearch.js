@@ -19,7 +19,7 @@ const SolutionSearch = ({ searchValue, onChange, handleFormOpen }) => {
         primary
         className='createButton'
         onClick={handleFormOpen}
-        height='35'
+        height='30'
       >
         Create
       </Button>

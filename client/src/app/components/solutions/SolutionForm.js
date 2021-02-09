@@ -45,23 +45,6 @@ const SolutionForm = ({ handleFormClose, solution }) => {
   const [newCategory, setNewCategory] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  // useEffect(() => {
-  //   if (match.params.id) {
-  //     const solution = solutions.find(
-  //       solution => solution._id === match.params.id
-  //     );
-  //     setSelectedSolution(solution);
-
-  //     const blocksFromHtml = htmlToDraft(solution.description);
-  //     const { contentBlocks, entityMap } = blocksFromHtml;
-  //     const contentState = ContentState.createFromBlockArray(
-  //       contentBlocks,
-  //       entityMap
-  //     );
-  //     setEditorState(EditorState.createWithContent(contentState));
-  //   }
-  // }, [match.params.id]);
-
   const handleEditorState = newState => {
     setEditorState(newState);
   };
@@ -84,6 +67,7 @@ const SolutionForm = ({ handleFormClose, solution }) => {
         createdDate: Date.now(),
         createdBy: '6009e1e40553527dd39639ab',
       };
+      console.log(newSolution);
       solutions.push(newSolution);
     },
   });

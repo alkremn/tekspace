@@ -1,8 +1,7 @@
 .solutionForm {
-  padding: 20px;
   margin-right: 20px;
   background-color: white;
-  padding: 30px 20px;
+  padding: 20px 30px;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
@@ -10,7 +9,8 @@
 }
 
 .solutionForm__title {
-  padding-bottom: 10px;
+  padding: 0 0 10px 20px;
+  font-size: 22px;
   border-bottom: 1px solid lightgray;
 }
 
@@ -51,14 +51,14 @@
 
 .MuiOutlinedInput-root {
   &.Mui-focused fieldset {
-    border-color: #3d8ee1 !important;
+    border-color: $primaryColor !important;
   }
   &.Mui-focused span {
-    border-color: #3d8ee1 !important;
+    border-color: $primaryColor !important;
   }
 }
 .MuiFormLabel-root.Mui-focused {
-  color: #3d8ee1 !important;
+  color: $primaryColor !important;
 }
 
 .form__titleDiv {
@@ -78,7 +78,7 @@
 .editor__editorDiv {
   border: 1px solid rgba(34, 36, 38, 0.15);
   line-height: 0.51rem;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 5px;
   margin-bottom: 30px;
 }

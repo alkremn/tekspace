@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import MenuOption from '../components/settings/MenuOption';
 import Profile from '../components/settings/Profile';
+import MenuOption from '../components/common/MenuOption';
 
 //icons
 import PersonIcon from '@material-ui/icons/Person';
-import { RiAdminLine } from 'react-icons/ri';
+import { RiAdminFill } from 'react-icons/ri';
 
 const SettingsPage = () => {
   const [menuOption, setMenuOption] = useState({
@@ -16,16 +16,18 @@ const SettingsPage = () => {
       <ul className='settings__menu'>
         <li>
           <MenuOption
-            title='profile'
+            title='Profile'
             setMenuOption={setMenuOption}
             Icon={PersonIcon}
+            active
           />
         </li>
         <li>
           <MenuOption
             title='Admin Settings'
             setMenuOption={setMenuOption}
-            Icon={RiAdminLine}
+            Icon={RiAdminFill}
+            active
           />
         </li>
       </ul>

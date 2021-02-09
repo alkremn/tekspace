@@ -1,15 +1,13 @@
 .titleListItem {
-  padding: 6px 0;
-  background-color: #eceff5;
+  padding: 8px 0;
+  background-color: #e3e5e79a;
   border: none;
   cursor: pointer;
   margin: 5px 0;
   border-radius: 5px;
-  width: 100%;
-  font-size: 14px;
   font-weight: bold;
+  width: 100%;
   color: #2b3353;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
 }
 
 .titleListItem:focus {
@@ -17,16 +15,14 @@
 }
 
 .titleListItem:hover {
-  opacity: 0.7;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.16);
+  opacity: 0.8;
 }
 
 .titleListItem:active {
   transform: translateY(1px);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.16);
 }
 
 .activeListItem {
-  background-color: #3d8ee1;
+  background-color: $primaryColor;
   color: white;
 }

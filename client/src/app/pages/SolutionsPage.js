@@ -9,6 +9,7 @@ import TitleList from '../components/solutions/TitleList';
 import SolutionSearch from '../components/solutions/SolutionSearch';
 import Solution from '../components/solutions/Solution';
 import SolutionForm from '../components/solutions/SolutionForm';
+import Loading from '../components/common/Loading';
 
 const SolutionPage = ({ history }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -16,6 +17,7 @@ const SolutionPage = ({ history }) => {
   const [selectedSolution, setSelectedSolution] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [formOpen, setFormOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const selectedCategoryHandler = categoryId => {
     setFormOpen(false);
@@ -63,6 +65,8 @@ const SolutionPage = ({ history }) => {
   const handleModifyOpen = () => {
     setFormOpen(true);
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className='solutionPage'>

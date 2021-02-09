@@ -7,7 +7,7 @@ const Profile = () => {
   return (
     <div className='profile'>
       <div className='profile__content'>
-        <h1>Edit Profile</h1>
+        <h1>Profile</h1>
         <Avatar className='profile__avatar' src={user.photoUrl} />
         <div className='profile__name'>
           <TextField
