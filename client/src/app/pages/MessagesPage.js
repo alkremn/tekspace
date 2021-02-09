@@ -5,6 +5,7 @@ import ChatMessage from '../components/chat/ChatMessage';
 import ChatUser from '../components/chat/ChatUser';
 import InputEmoji from 'react-input-emoji';
 import { users } from '../../data/users';
+import { RiSendPlaneFill } from 'react-icons/ri';
 // import io from 'socket.io-client';
 
 function createName(user) {
@@ -12,7 +13,7 @@ function createName(user) {
   return `${firstName} ${lastName}`;
 }
 
-const ChatPage = () => {
+const MessagesPage = () => {
   // const { user } = useSelector(state => state.auth);
   const [message, setMessage] = useState('');
   // const { users } = useSelector(state => state.users);
@@ -35,7 +36,7 @@ const ChatPage = () => {
   };
 
   return (
-    <div className='chatPage'>
+    <div className='messagesPage'>
       <div className='chat'>
         <div className='chat__messages'>
           {messages.map(message => (
@@ -50,6 +51,9 @@ const ChatPage = () => {
             onEnter={onEnterHandler}
             placeholder='Type a message'
           />
+          <button className='chat__form-button'>
+            <RiSendPlaneFill className='chat__form-icon' />
+          </button>
         </div>
       </div>
       <div className='chatMembers'>
@@ -60,6 +64,7 @@ const ChatPage = () => {
               .sort((a, b) => (b.lastName < a.lastName ? 1 : -1))
               .map(user => (
                 <ChatUser
+                  key={user._id}
                   image={user.photoUrl}
                   label={user.initials}
                   name={createName(user)}
@@ -71,4 +76,4 @@ const ChatPage = () => {
   );
 };
 
-export default ChatPage;
+export default MessagesPage;

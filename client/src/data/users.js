@@ -1,5 +1,6 @@
 export const users = [
   {
+    _id: '1',
     firstName: 'Ben',
     lastName: 'Gold',
     email: 'ben49@gmail.com',
@@ -10,6 +11,7 @@ export const users = [
     isSecond: false,
   },
   {
+    _id: '2',
     firstName: 'Alexey',
     lastName: 'Kremnev',
     email: 'alkremn@gmail.com',
@@ -21,6 +23,7 @@ export const users = [
     isSecond: true,
   },
   {
+    _id: '3',
     firstName: 'John',
     lastName: 'Bowe',
     email: 'bowej@gmail.com',

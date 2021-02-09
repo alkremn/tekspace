@@ -1,0 +1,18 @@
+.settings {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 16% auto;
+  width: calc(100% - 20px);
+  height: calc(100vh - 80px);
+  margin: 0 10px;
+}
+
+.settings__menu {
+  background-color: #fff;
+  height: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(6, 8, 9, 0.16);
+}
+
+@import '../components/settings/profile';

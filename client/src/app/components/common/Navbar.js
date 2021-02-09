@@ -3,7 +3,8 @@ import Link from './Link';
 import logo from '../../../assets/logo-inverted.svg';
 //icons
 import { RiDashboardLine } from 'react-icons/ri';
-import { GiMicroscope, GiEscalator } from 'react-icons/gi';
+import { GiEscalator } from 'react-icons/gi';
+import { IoExitOutline } from 'react-icons/io5';
 import { RiTeamFill } from 'react-icons/ri';
 import { ImBooks } from 'react-icons/im';
 import { BsChatDotsFill } from 'react-icons/bs';
@@ -13,11 +14,11 @@ const Navbar = () => {
   return (
     <div className='navbar'>
       <div className='navbar__header'>
-        <GiMicroscope className='navbar__icon' alt='logo' />
+        <img className='navbar__logo' src={logo} alt='logo' />
       </div>
       <ul className='navbar__links'>
         <li>
-          <Link to='/dashboard' title='Dashboard' Icon={RiDashboardLine} />
+          <Link to='/overview' title='Overview' Icon={RiDashboardLine} />
         </li>
         <li>
           <Link to='/team' title='Team' Icon={RiTeamFill} />
@@ -29,13 +30,15 @@ const Navbar = () => {
           <Link to='/second' title='Escalations' Icon={GiEscalator} />
         </li>
         <li>
-          <Link to='/chat' title='Chat' Icon={BsChatDotsFill} />
+          <Link to='/messages' title='Messages' Icon={BsChatDotsFill} />
         </li>
         <li>
           <Link to='/settings' title='Settings' Icon={IoSettingsSharp} />
         </li>
       </ul>
-      <img className='navbar__logo' src={logo} alt='logo' />
+      <div className='navbar__bottom'>
+        <Link to='/exit' title='Exit' Icon={IoExitOutline} />
+      </div>
     </div>
   );
 };

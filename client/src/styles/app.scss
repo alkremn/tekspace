@@ -23,7 +23,7 @@ h3 {
 }
 body {
   font-family: 'Roboto', sans-serif;
-  font-size: 15px;
+  font-size: 14px;
 }
 h3,
 h4 {
@@ -38,7 +38,7 @@ h4 {
 .content {
   display: grid;
   background-color: #f7f9fa;
-  grid-template-columns: 80px auto;
+  grid-template-columns: 170px auto;
   grid-template-rows: 60px auto;
   row-gap: 10px;
   min-height: 100vh;
@@ -52,7 +52,9 @@ h4 {
 @import './components/common/button';
 
 // Pages
+@import './pages/overviewPage';
 @import './pages/loginPage';
 @import './pages/solutionsPage';
 @import './pages/secondPage';
-@import './pages/chatPage';
+@import './pages/messagesPage';
+@import './pages/settingsPage';

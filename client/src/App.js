@@ -10,11 +10,11 @@ import Header from './app/components/common/Header';
 
 // Pages
 import LoginPage from './app/pages/LoginPage';
-import DashboardPage from './app/pages/DashboardPage';
+import OverviewPage from './app/pages/OverviewPage';
 import TeamPage from './app/pages/TeamPage';
 import SolutionsPage from './app/pages/SolutionsPage';
 import SecondPage from './app/pages/SecondPage';
-import ChatPage from './app/pages/ChatPage';
+import MessagesPage from './app/pages/MessagesPage';
 import SettingsPage from './app/pages/SettingsPage';
 
 function App() {
@@ -29,11 +29,11 @@ function App() {
           <Navbar />
           <Header />
           <Switch>
-            <Route exact path={['/', '/dashboard']} component={DashboardPage} />
+            <Route exact path={['/', '/overview']} component={OverviewPage} />
             <Route path='/team' component={TeamPage} />
             <Route path='/solutions' component={SolutionsPage} />
             <Route path='/second' component={SecondPage} />
-            <Route path='/chat' component={ChatPage} />
+            <Route path='/messages' component={MessagesPage} />
             <Route path='/settings' component={SettingsPage} />
           </Switch>
         </div>

@@ -1,11 +1,10 @@
-.chatPage {
+.messagesPage {
   display: grid;
-  grid-template-columns: 12% 50% auto;
+  grid-template-columns: 60% auto;
   height: calc(100vh - 90px);
 }
 
 .chat {
-  grid-column: 2;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -45,24 +44,24 @@
 }
 
 .chat__form-button {
-  width: 60px;
-  height: 60px;
-  padding: 0 !important;
-  margin: 10px 20px 10px 20px !important;
-  background: transparent !important;
+  padding: 5px;
+  margin: 10px;
+  margin-right: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 .chat__form-icon {
   color: #7d7e81;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
 }
 
 .chatMembers {
-  width: 50%;
-  height: fit-content;
+  width: 60%;
+  height: 50%;
   margin-left: 40px;
   background-color: white;
-  grid-column: 3;
   border-radius: 10px;
   box-shadow: 0 1px 4px rgba(6, 8, 9, 0.16);
 }
