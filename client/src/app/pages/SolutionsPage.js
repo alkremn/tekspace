@@ -17,7 +17,7 @@ const SolutionPage = ({ history }) => {
   const [selectedSolution, setSelectedSolution] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [formOpen, setFormOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const selectedCategoryHandler = categoryId => {
     setFormOpen(false);
