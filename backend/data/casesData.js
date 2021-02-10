@@ -1,0 +1,48 @@
+export const cases = [
+  {
+    _id: '600e54a4d310cb4408d65acc',
+    caseNumber: '84503',
+    title: 'This is case description',
+    description: 'This is case description',
+    createdBy: '600a515698d89c806a360a1a',
+    createdDate: '1611032402379',
+    finishedDate: '',
+    assignedTo: '',
+    status: 'new',
+  },
+  {
+    _id: '600e54eed310cb4408d65acd',
+    caseNumber: '84572',
+    title: 'Hand cradle connection issue',
+    description: 'This is a description',
+    createdBy: '600a515698d89c806a360a1b',
+    createdDate: '1611553040694',
+    finishedDate: '',
+    assignedTo: '',
+    status: 'inProgress',
+  },
+  {
+    _id: '600e59150dc3934c8ae7e563',
+    caseNumber: '84609',
+    title: 'Zyto 5 crashing',
+    description:
+      'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
+    createdBy: '600a515698d89c806a360a1a',
+    createdDate: '1611553040694',
+    finishedDate: '',
+    assignedTo: '',
+    status: 'new',
+  },
+  {
+    _id: '601105c4e10949be3fb1a2f7',
+    caseNumber: '84432',
+    title: '.NET Framework Problem',
+    description:
+      'Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.',
+    createdBy: '600a515698d89c806a360a1a',
+    createdDate: '1611553040694',
+    finishedDate: '',
+    assignedTo: '',
+    status: 'new',
+  },
+];
