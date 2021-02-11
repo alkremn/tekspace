@@ -13,6 +13,7 @@ app.use(express.json());
 
 // Setup routes
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/users', require('./routes/usersRoutes'));
 
 // Setup middleware
 app.use(notFound);
