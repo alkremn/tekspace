@@ -54,8 +54,9 @@ h4 {
 @import './components/common/loading';
 
 // Pages
-@import './pages/overviewPage';
 @import './pages/loginPage';
+@import './pages/overviewPage';
+@import './pages/teamPage';
 @import './pages/solutionsPage';
 @import './pages/secondPage';
 @import './pages/messagesPage';

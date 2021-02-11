@@ -1,0 +1,38 @@
+.teamMember {
+  max-width: 200px;
+  max-height: 350px;
+  width: 100%;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) 0s;
+}
+.teamMember:hover {
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+}
+
+.teamMember__image {
+  width: 90%;
+  border-radius: 50%;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.teamMember__bottom {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.teamMember__name {
+  font-size: 18px;
+}
+.teamMember__title {
+  font-size: 13px;
+  color: #8492a6;
+}

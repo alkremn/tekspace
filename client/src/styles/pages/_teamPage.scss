@@ -1,0 +1,12 @@
+.teamPage {
+  display: grid;
+  grid-template-rows: 40px 250px auto;
+  gap: 10px;
+  justify-items: center;
+}
+
+.teamPage__team {
+  display: flex;
+  list-style: none;
+}
+@import '../components/team/teamMember';

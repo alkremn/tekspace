@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
   {
@@ -31,23 +32,20 @@ const userSchema = new Schema(
     photoUrl: {
       type: String,
     },
-    // createdBy: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'user',
-    // },
+
     updatedDate: {
       type: String,
       required: true,
       default: Date.now(),
     },
-    // updatedBy: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'user',
-    // },
   },
   {
     timestamps: true,
   }
 );
+
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 module.exports = model('User', userSchema);

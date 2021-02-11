@@ -2,15 +2,21 @@ require('dotenv').config({ path: 'backend/config/config.env' });
 const colors = require('colors');
 const express = require('express');
 const connectDB = require('./config/db');
-const seedDB = require('./seeder');
-const app = express();
+const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
-//database connection
+// Setup database connection
 connectDB();
 
-app.get('/', (req, res) => {
-  res.send('API is running');
-});
+// Setup express app
+const app = express();
+app.use(express.json());
+
+// Setup routes
+app.use('/api/auth', require('./routes/authRoutes'));
+
+// Setup middleware
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server started on ${PORT}`));
