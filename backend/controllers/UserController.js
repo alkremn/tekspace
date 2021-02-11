@@ -25,6 +25,11 @@ exports.loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Logout user
+// @route   /api/users/
+// @access  Private
+exports.logoutUser = asyncHandler(async (req, res) => {});
+
 // @desc    GET all users
 // @route   /api/users/
 // @access  Private

@@ -1,28 +1,45 @@
 import React, { useState, useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { loginAction } from '../actions/authActions';
+import { useSelector, useDispatch } from 'react-redux';
 import logoIcon from '../../assets/logo.svg';
 import { FcGoogle } from 'react-icons/fc';
 import Button from '../components/common/Button';
 import { motion } from 'framer-motion';
-import { TextField } from '@material-ui/core';
+import { loginAction } from '../../actions/authActions';
+import { FormControl, TextField, Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 
-const LoginPage = ({ history }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  // const dispatch = useDispatch();
-  // const { loading, user } = useSelector(state => state.auth);
+// Validation
+import * as yup from 'yup';
+import { useFormik } from 'formik';
 
-  // useEffect(() => {
-  //   if (user) {
-  //     history.push('/dashboard');
-  //   }
-  // }, [history, user]);
+// Validation Schema
+const validationSchema = yup.object({
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup.string().required('Password is required'),
+});
 
-  const loginHandler = e => {
-    // e.preventDefault();
-    // dispatch(loginAction(email, password));
-  };
+const LoginPage = () => {
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { error } = useSelector(state => state.auth);
+
+  // Formik
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: values => {
+      dispatch(loginAction(values));
+    },
+  });
+
+  useEffect(() => {
+    if (error) {
+      setOpen(true);
+    }
+  }, [error]);
 
   return (
     <div className='login'>
@@ -35,33 +52,43 @@ const LoginPage = ({ history }) => {
         exit={{ scale: 0.3, opacity: 0 }}
       >
         <img className='login__icon' src={logoIcon} alt='logo' />
-        <form className='login__form' action='/api/login' method='POST'>
-          <TextField
-            id='email'
-            value={email}
-            size='small'
-            variant='outlined'
-            className='login__input'
-            placeholder='email'
-            type='email'
-            onChange={e => setEmail(e.target.value)}
-          />
-          <TextField
-            id='password'
-            size='small'
-            variant='outlined'
-            value={password}
-            className='login__input'
-            placeholder='password'
-            onChange={e => setPassword(e.target.value)}
-            type='password'
-          />
+        <form className='login__form' onSubmit={formik.handleSubmit}>
+          <FormControl style={{ width: '100%' }}>
+            <TextField
+              id='email'
+              name='email'
+              size='small'
+              variant='outlined'
+              className='login__input'
+              placeholder='email'
+              type='email'
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+          </FormControl>
+          <FormControl style={{ width: '100%' }}>
+            <TextField
+              id='password'
+              name='password'
+              size='small'
+              variant='outlined'
+              className='login__input'
+              placeholder='password'
+              type='password'
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+          </FormControl>
           <Button
             className='login__button'
             primary
             width='320'
             height='45'
-            onClick={e => loginHandler(e)}
+            type='submit'
           >
             Log In
           </Button>
@@ -85,6 +112,16 @@ const LoginPage = ({ history }) => {
           </Button>
         </form>
       </motion.div>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <MuiAlert elevation={6} variant='filled' severity='error'>
+          {error?.message}
+        </MuiAlert>
+      </Snackbar>
     </div>
   );
 };

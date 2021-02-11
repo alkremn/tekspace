@@ -1,6 +1,7 @@
 require('dotenv').config({ path: 'backend/config/config.env' });
 const colors = require('colors');
 const express = require('express');
+const cors = require('cors');
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
@@ -10,6 +11,7 @@ connectDB();
 // Setup express app
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Setup routes
 app.use('/api/users', require('./routes/userRoutes'));

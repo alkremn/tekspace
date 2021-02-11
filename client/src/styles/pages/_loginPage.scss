@@ -9,7 +9,7 @@
 
 .login__container {
   width: 400px;
-  height: 550px;
+  height: 530px;
   background: white;
   border-radius: 10px;
   display: flex;
@@ -30,20 +30,19 @@
   margin: 20px 0;
 }
 .login__form {
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 80%;
 }
 
 .login__input {
-  margin-top: 20px;
-  width: 80% !important;
-  height: 50px !important;
+  margin-bottom: 20px !important;
 }
 
 .login__button {
-  margin: 2rem 0 1.5rem;
+  margin: 1rem 0 1.5rem;
 }
 
 .login__google-button {
