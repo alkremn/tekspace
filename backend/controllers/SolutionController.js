@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const Category = require('../models/Category');
 const Solution = require('../models/Solution');
 
 exports.getSolutions = asyncHandler(async (req, res) => {
@@ -12,12 +13,6 @@ exports.getSolutions = asyncHandler(async (req, res) => {
 });
 
 exports.createSolution = asyncHandler(async (req, res) => {
-  const { title, description, categoryId, createdBy } = req.body;
-
-  if (!title || !description || !categoryId || !createdBy) {
-    res.status(400);
-    throw new Error('Bad request');
-  }
   try {
     const createdSolution = await Solution.create(req.body);
     res.json(createdSolution);
