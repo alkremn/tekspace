@@ -17,11 +17,10 @@ const protect = asyncHandler(async (req, res, next) => {
       res.status(401);
       throw new Error('Unauthorized! Invalid Token');
     }
-
-    if (!token) {
-      res.status(401);
-      throw new Error('Unauthorized, no token');
-    }
+  }
+  if (!token) {
+    res.status(401);
+    throw new Error('Unauthorized, no token');
   }
 });
 

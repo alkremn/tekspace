@@ -52,7 +52,7 @@ const SolutionForm = ({ handleFormClose, solution }) => {
   // Formik
   const formik = useFormik({
     initialValues: {
-      category: solution !== null ? solution.category : '',
+      category: solution !== null ? solution.categoryId : '',
       title: solution !== null ? solution.title : '',
     },
     validationSchema: validationSchema,
@@ -83,11 +83,7 @@ const SolutionForm = ({ handleFormClose, solution }) => {
       <h1 className='solutionForm__title'>
         {solution == null ? 'New Solution' : 'Modify Solution'}
       </h1>
-      <form
-        action=''
-        className='solutionForm__form'
-        onSubmit={formik.handleSubmit}
-      >
+      <form className='solutionForm__form' onSubmit={formik.handleSubmit}>
         <div className='form__category'>
           <FormLabel>Category</FormLabel>
           <ul className='form__categoryList'>
@@ -186,7 +182,6 @@ const SolutionForm = ({ handleFormClose, solution }) => {
             title='Save'
             type='submit'
             primary
-            disabled={!formik.isValid}
           >
             Save
           </Button>
