@@ -5,7 +5,11 @@ const Solution = require('../models/Solution');
 exports.getSolutions = asyncHandler(async (req, res) => {
   try {
     const solutions = await Solution.find({});
-    res.json(solutions);
+    const categories = await Category.find({});
+    res.json({
+      categories: categories,
+      solutions: solutions,
+    });
   } catch (error) {
     res.status(500);
     throw new Error('Internal Server Error');

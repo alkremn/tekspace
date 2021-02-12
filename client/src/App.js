@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import './styles/app.scss';
 // Router
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -15,9 +15,22 @@ import SolutionsPage from './app/pages/SolutionsPage';
 import SecondPage from './app/pages/SecondPage';
 import MessagesPage from './app/pages/MessagesPage';
 import SettingsPage from './app/pages/SettingsPage';
+// Socket.io
+import io from 'socket.io-client';
 
 function App() {
   const { user } = useSelector(state => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      console.log('asdfsadf');
+      const socket = io('http://localhost:5000', {
+        auth: {
+          token: user.token,
+        },
+      });
+    }
+  }, [user]);
 
   return (
     <div className='app'>

@@ -1,38 +1,47 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
 // Data
-import { categories } from '../../data/categories';
-import { solutions as solutionsData } from '../../data/solutions';
-
+// import { categories } from '../../data/categories';
+// import { solutions as solutionsData } from '../../data/solutions';
 // Components
 import TitleList from '../components/solutions/TitleList';
 import SolutionSearch from '../components/solutions/SolutionSearch';
 import Solution from '../components/solutions/Solution';
 import SolutionForm from '../components/solutions/SolutionForm';
 import Loading from '../components/common/Loading';
+// Actions
+import { fetchSolutions } from '../../actions/solutionsActions';
 
-const SolutionPage = ({ history }) => {
+const SolutionPage = () => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector(state => state.async);
+  const { categories, solutions } = useSelector(state => state.solutions);
+
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [solutions, setSolutions] = useState(solutionsData);
+  const [filteredSolutions, setFilteredSolutions] = useState([]);
   const [selectedSolution, setSelectedSolution] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [formOpen, setFormOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchSolutions());
+  }, [dispatch]);
 
   const selectedCategoryHandler = categoryId => {
     setFormOpen(false);
     setSelectedCategory(categoryId);
     setSelectedSolution(null);
     setSearchTerm('');
-    setSolutions(
-      solutionsData.filter(solution => solution.categoryId === categoryId)
+    setFilteredSolutions(
+      solutions.filter(solution => solution.categoryId === categoryId)
     );
   };
 
   const selectedSolutionHandler = solutionId => {
     setFormOpen(false);
     setSelectedSolution(
-      solutionsData.find(solution => solution._id === solutionId)
+      solutions.find(solution => solution._id === solutionId)
     );
   };
 
@@ -42,8 +51,8 @@ const SolutionPage = ({ history }) => {
     setSearchTerm(searchInput);
     setSelectedCategory(null);
     setSelectedSolution(null);
-    setSolutions(
-      solutionsData.filter(solution =>
+    setFilteredSolutions(
+      solutions.filter(solution =>
         solution.title
           .toLocaleLowerCase()
           .startsWith(searchInput?.toLocaleLowerCase())
@@ -54,7 +63,7 @@ const SolutionPage = ({ history }) => {
   const handleFormOpen = () => {
     setSelectedCategory(null);
     setSelectedSolution(null);
-    setSolutions(solutionsData);
+    setFilteredSolutions(solutions);
     setFormOpen(true);
   };
 
@@ -83,7 +92,7 @@ const SolutionPage = ({ history }) => {
         handleFormOpen={handleFormOpen}
       />
       <TitleList
-        items={solutions}
+        items={filteredSolutions}
         title='Solutions'
         active={selectedSolution?._id}
         action={selectedSolutionHandler}

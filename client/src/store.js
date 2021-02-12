@@ -1,12 +1,14 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import { asyncReducer } from './reducers/asyncReducer';
+import asyncReducer from './reducers/asyncReducer';
 import authReducer from './reducers/authReducer';
+import solutionsReducer from './reducers/solutionsReducer';
 
 const rootReducer = combineReducers({
   async: asyncReducer,
   auth: authReducer,
+  solutions: solutionsReducer,
 });
 
 const initialState = {

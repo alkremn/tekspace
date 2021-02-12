@@ -3,7 +3,8 @@
   height: 100%;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(6, 8, 9, 0.16);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
 }
 
 .categories {
@@ -20,7 +21,7 @@
 .titleList__titles {
   border-top: 1px solid lightgray;
   padding-top: 10px;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 .titleList__titles::-webkit-scrollbar {

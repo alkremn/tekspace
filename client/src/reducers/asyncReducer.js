@@ -4,7 +4,7 @@ const initialState = {
   loading: false,
 };
 
-export const asyncReducer = (state = initialState, { type, payload }) => {
+const asyncReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case LOADING_START:
       return {
@@ -20,3 +20,5 @@ export const asyncReducer = (state = initialState, { type, payload }) => {
       return state;
   }
 };
+
+export default asyncReducer;
