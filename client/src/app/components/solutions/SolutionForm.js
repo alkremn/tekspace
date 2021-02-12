@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { createSolution } from '../../../actions/solutionsActions';
 // data
 import { categories } from '../../../data/categories';
 import { solutions } from '../../../data/solutions';
@@ -42,6 +45,9 @@ const BlueRadio = withStyles({
 })(props => <Radio color='default' {...props} />);
 
 const SolutionForm = ({ handleFormClose, solution }) => {
+  const { user } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
   const [newCategory, setNewCategory] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
@@ -60,15 +66,18 @@ const SolutionForm = ({ handleFormClose, solution }) => {
       const html = draftToHtml(convertToRaw(editorState.getCurrentContent()));
       values.text = html;
       const newSolution = {
-        _id: '123123',
         title: values.title,
         description: values.text,
-        categoryId: values.category,
         createdDate: Date.now(),
-        createdBy: '6009e1e40553527dd39639ab',
+        createdBy: user._id,
       };
+      if (newCategory) {
+        newSolution.categoryTitle = values.category;
+      } else {
+        newSolution.categoryId = values.category;
+      }
       console.log(newSolution);
-      solutions.push(newSolution);
+      dispatch(createSolution(newSolution));
     },
   });
 

@@ -26,7 +26,7 @@ exports.createCategory = asyncHandler(async (req, res) => {
     const result = await Category.create({
       title,
     });
-    res.status(201).json({ id: result._id });
+    res.status(201).json(result);
   } catch (error) {
     res.status(500);
     throw new Error('Internal server error');
