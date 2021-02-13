@@ -1,17 +1,20 @@
 import { LOADING_START, LOADING_FINISH } from '../constants/asyncConstants';
 import {
-  FETCH_SOLUTIONS_SUCCESS,
-  FETCH_SOLUTIONS_FAIL,
-  CREATE_SOLUTION_SUCCESS,
-  CREATE_SOLUTION_FAIL,
-} from '../constants/solutionsConstants';
-
-import {
   FETCH_CATEGORIES_SUCCESS,
   FETCH_CATEGORIES_FAIL,
   CREATE_CATEGORY_SUCCESS,
   CREATE_CATEGORY_FAIL,
+  REMOVE_CATEGORY_SUCCESS,
+  REMOVE_CATEGORY_FAIL,
 } from '../constants/categoriesConstants';
+import {
+  FETCH_SOLUTIONS_SUCCESS,
+  FETCH_SOLUTIONS_FAIL,
+  CREATE_SOLUTION_SUCCESS,
+  CREATE_SOLUTION_FAIL,
+  REMOVE_SOLUTION_SUCCESS,
+  REMOVE_SOLUTION_FAIL,
+} from '../constants/solutionsConstants';
 
 import { axiosInstance } from '../api/axios';
 
@@ -77,21 +80,26 @@ export const createSolution = solution => async (dispatch, getState) => {
 };
 
 export const removeSolution = solutionId => async (dispatch, getState) => {
-  // const config = {
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer ${getState().auth.user.token}`,
-  //   },
-  // };
-  // dispatch({ type: LOADING_START });
-  // try {
-  //   const { data } = await axiosInstance.delete(
-  //     `api/solutions/${solutionId}`,
-  //     config
-  //   );
-  //   console.log(data);
-  // } catch (error) {
-  //   dispatch({ type: REMOVE_SOLUTION_FAIL, payload: error });
-  // }
-  // dispatch({ type: LOADING_FINISH });
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getState().auth.user.token}`,
+    },
+  };
+
+  dispatch({ type: LOADING_START });
+  try {
+    const { data } = await axiosInstance.delete(
+      `api/solutions/${solutionId}`,
+      config
+    );
+    if (data.categoryId) {
+      dispatch({ type: REMOVE_CATEGORY_SUCCESS, payload: data });
+    }
+    console.log(data);
+    dispatch({ type: REMOVE_SOLUTION_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: REMOVE_SOLUTION_FAIL, payload: error });
+  }
+  dispatch({ type: LOADING_FINISH });
 };

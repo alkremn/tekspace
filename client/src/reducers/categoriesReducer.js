@@ -3,6 +3,8 @@ import {
   FETCH_CATEGORIES_FAIL,
   CREATE_CATEGORY_SUCCESS,
   CREATE_CATEGORY_FAIL,
+  REMOVE_CATEGORY_SUCCESS,
+  REMOVE_CATEGORY_FAIL,
 } from '../constants/categoriesConstants';
 
 const initialState = {
@@ -25,6 +27,16 @@ const solutionsReducer = (state = initialState, action) => {
         categories: [...state.categories, action.payload],
       };
     case CREATE_CATEGORY_FAIL:
+      return {
+        error: action.payload,
+      };
+    case REMOVE_CATEGORY_SUCCESS:
+      return {
+        categories: [
+          ...state.categories.filter(c => c._id !== action.payload.categoryId),
+        ],
+      };
+    case REMOVE_CATEGORY_FAIL:
       return {
         error: action.payload,
       };

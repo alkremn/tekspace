@@ -40,7 +40,12 @@ const BlueRadio = withStyles({
   checked: {},
 })(props => <Radio color='default' {...props} />);
 
-const SolutionForm = ({ handleFormClose, solution, categories }) => {
+const SolutionForm = ({
+  handleFormClose,
+  handleSaveSolution,
+  solution,
+  categories,
+}) => {
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
 
@@ -76,6 +81,7 @@ const SolutionForm = ({ handleFormClose, solution, categories }) => {
       } else {
         dispatch(createSolution(newSolution));
       }
+      handleSaveSolution();
       handleFormClose(true);
     },
   });

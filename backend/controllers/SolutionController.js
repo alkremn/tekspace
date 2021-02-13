@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const Category = require('../models/Category');
 const Solution = require('../models/Solution');
 
 exports.getSolutions = asyncHandler(async (req, res) => {
@@ -21,4 +22,21 @@ exports.createSolution = asyncHandler(async (req, res) => {
   }
 });
 
-exports.removeSolution = asyncHandler(async (req, res) => {});
+exports.removeSolution = asyncHandler(async (req, res) => {
+  const solutionId = req.params.id;
+  let response = {};
+  try {
+    const { categoryId } = await Solution.findById(solutionId);
+    const otherSolutions = await Solution.find({ categoryId });
+    if (otherSolutions.length === 1) {
+      const category = await Category.findByIdAndDelete(categoryId);
+      response.categoryId = category._id;
+    }
+    const solution = await Solution.findByIdAndDelete(solutionId);
+    response.solutionId = solution._id;
+    res.status(201).json(response);
+  } catch (error) {
+    res.status(500);
+    throw new Error(error);
+  }
+});

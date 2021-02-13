@@ -16,7 +16,6 @@ exports.getCategories = asyncHandler(async (req, res) => {
 });
 
 exports.createCategory = asyncHandler(async (req, res) => {
-  console.log(req.body.title)
   if (!req.body.title) {
     res.status(400);
     throw new Error('Bad request');

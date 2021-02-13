@@ -61,6 +61,10 @@ const SolutionPage = ({ history }) => {
     );
   };
 
+  const handleSaveSolution = () => {
+    setSelectedCategory(null);
+  };
+
   const handleFormOpen = () => {
     setSelectedCategory(null);
     setSelectedSolution(null);
@@ -70,15 +74,14 @@ const SolutionPage = ({ history }) => {
 
   const handleDeleteSolution = solutionId => {
     dispatch(removeSolution(solutionId));
-    history.push('/solutions');
+    setSelectedSolution(null);
+    setFilteredSolutions(
+      solutions.filter(solution => solution._id !== solutionId)
+    );
   };
 
   const handleFormClose = () => {
     setFormOpen(false);
-  };
-
-  const handleModifyOpen = () => {
-    setFormOpen(true);
   };
 
   if (loading) return <Loading />;
@@ -107,13 +110,13 @@ const SolutionPage = ({ history }) => {
         selectedSolution && (
           <Solution
             solution={selectedSolution}
-            handleModifyOpen={handleModifyOpen}
             deleteHandler={handleDeleteSolution}
           />
         )
       ) : (
         <SolutionForm
           handleFormClose={handleFormClose}
+          handleSaveSolution={handleSaveSolution}
           solution={selectedSolution}
           categories={categories}
         />
