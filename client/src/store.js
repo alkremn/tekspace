@@ -5,12 +5,16 @@ import asyncReducer from './reducers/asyncReducer';
 import authReducer from './reducers/authReducer';
 import categoriesReducer from './reducers/categoriesReducer';
 import solutionsReducer from './reducers/solutionsReducer';
+import usersReducer from './reducers/usersReducer';
+import messagesReducer from './reducers/messagesReducer';
 
 const rootReducer = combineReducers({
   async: asyncReducer,
   auth: authReducer,
   categories: categoriesReducer,
   solutions: solutionsReducer,
+  users: usersReducer,
+  messages: messagesReducer,
 });
 
 const initialState = {

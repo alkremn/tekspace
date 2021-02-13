@@ -1,46 +1,45 @@
-import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
-import { messages } from '../../data/messages';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchMessages } from '../../actions/messagesActions';
 import ChatMessage from '../components/chat/ChatMessage';
 import ChatUser from '../components/chat/ChatUser';
 import InputEmoji from 'react-input-emoji';
 import { users } from '../../data/users';
 import { RiSendPlaneFill } from 'react-icons/ri';
-// import io from 'socket.io-client';
-
-function createName(user) {
-  const { firstName, lastName } = user;
-  return `${firstName} ${lastName}`;
-}
+import socket from '../../utils/socket';
 
 const MessagesPage = () => {
-  // const { user } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
+  const { messages } = useSelector(state => state.messages);
+  const dispatch = useDispatch();
   const [message, setMessage] = useState('');
-  // const { users } = useSelector(state => state.users);
-  // const socket = io('http://localhost:5000', {
-  //   'force new connection': false,
-  //   auth: {
-  //     token: user.token,
-  //   },
-  // });
+  const [allMessages, setAllMessages] = useState(messages);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(fetchMessages());
+    };
+    fetchData();
+  }, [dispatch]);
+
+  socket.on('newMessage', newMessage => {
+    setAllMessages([...allMessages, newMessage]);
+  });
 
   const onEnterHandler = () => {
-    messages.push({
-      id: '4',
-      senderId: '23423234',
-      name: 'Ben Gold',
+    const newMessage = {
+      senderId: user._id,
       message: message,
-      timestamp: Date.now(),
-      recieved: true,
-    });
+    };
+    socket.emit('message', newMessage);
   };
 
   return (
     <div className='messagesPage'>
       <div className='chat'>
         <div className='chat__messages'>
-          {messages.map(message => (
-            <ChatMessage key={message.id} message={message} />
+          {allMessages?.map(message => (
+            <ChatMessage key={message._id} message={message} />
           ))}
         </div>
         <div className='chat__form'>
@@ -67,7 +66,7 @@ const MessagesPage = () => {
                   key={user._id}
                   image={user.photoUrl}
                   label={user.initials}
-                  name={createName(user)}
+                  name={user.name}
                 />
               ))}
         </ul>

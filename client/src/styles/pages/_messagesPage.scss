@@ -20,6 +20,10 @@
   flex: 0.9;
   padding: 30px;
   padding-top: 50px;
+  overflow: scroll;
+}
+.chat__messages::-webkit-scrollbar {
+  display: none;
 }
 
 .chat__form {

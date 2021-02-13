@@ -3,7 +3,7 @@ const colors = require('colors');
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
-const jwt = require('jsonwebtoken');
+const { socket } = require('./socket');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 // Setup database connection
@@ -18,6 +18,7 @@ app.use(cors());
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/categories', require('./routes/categoryRoutes'));
 app.use('/api/solutions', require('./routes/solutionRoutes'));
+app.use('/api/messages', require('./routes/messageRoutes'));
 
 // Setup middleware
 app.use(notFound);
@@ -26,31 +27,5 @@ app.use(errorHandler);
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => console.log(`Server started on ${PORT}`));
 
-const io = require('socket.io')(server, {
-  cors: {
-    cors,
-  },
-});
-
-// Socket.io server middleware setup
-io.use((socket, next) => {
-  try {
-    const token = socket.handshake.auth.token;
-    if (!token) {
-      return next(new Error('Unauthorized, no token'));
-    }
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    socket.userId = payload.id;
-    next();
-  } catch (error) {
-    return next(new Error('Unauthorized, invalid token'));
-  }
-});
-
-// Socket.io server setup
-io.on('connection', socket => {
-  console.log(`${socket.userId} is connected`);
-  socket.on('disconnect', () => {
-    console.log(`${socket.userId} is disconnected`);
-  });
-});
+// Socket.io
+socket(server);

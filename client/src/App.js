@@ -3,7 +3,8 @@ import './styles/app.scss';
 // Router
 import { Redirect, Route, Switch } from 'react-router-dom';
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchUsers } from './actions/usersActions';
 // Components
 import Navbar from './app/components/common/Navbar';
 import Header from './app/components/common/Header';
@@ -16,21 +17,22 @@ import SecondPage from './app/pages/SecondPage';
 import MessagesPage from './app/pages/MessagesPage';
 import SettingsPage from './app/pages/SettingsPage';
 // Socket.io
-import io from 'socket.io-client';
+import socket from './utils/socket';
 
 function App() {
+  const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
 
   useEffect(() => {
     if (user) {
-      console.log('asdfsadf');
-      const socket = io('http://localhost:5000', {
-        auth: {
-          token: user.token,
-        },
-      });
+      socket.auth = { token: user.token };
+      socket.connect();
     }
-  }, [user]);
+    const fetchData = async () => {
+      dispatch(fetchUsers());
+    };
+    fetchData();
+  }, [user, dispatch]);
 
   return (
     <div className='app'>
