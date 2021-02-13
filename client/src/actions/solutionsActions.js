@@ -6,63 +6,92 @@ import {
   CREATE_SOLUTION_FAIL,
 } from '../constants/solutionsConstants';
 
+import {
+  FETCH_CATEGORIES_SUCCESS,
+  FETCH_CATEGORIES_FAIL,
+  CREATE_CATEGORY_SUCCESS,
+  CREATE_CATEGORY_FAIL,
+} from '../constants/categoriesConstants';
+
 import { axiosInstance } from '../api/axios';
 
 export const fetchSolutions = () => async (dispatch, getState) => {
   const config = {
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${getState().auth.user.token}`,
     },
   };
+  dispatch({ type: LOADING_START });
   try {
-    dispatch({ type: LOADING_START });
-    const response = await axiosInstance.get('/api/solutions', config);
-    dispatch({ type: FETCH_SOLUTIONS_SUCCESS, payload: response.data });
-    dispatch({ type: LOADING_FINISH });
+    const { data } = await axiosInstance.get('/api/categories', config);
+    dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: data });
   } catch (error) {
-    console.log(error);
-    dispatch({ type: FETCH_SOLUTIONS_FAIL, payload: error });
-    dispatch({ type: LOADING_FINISH });
+    dispatch({ type: FETCH_CATEGORIES_FAIL, payload: error });
   }
+  try {
+    const { data } = await axiosInstance.get('/api/solutions', config);
+    dispatch({ type: FETCH_SOLUTIONS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: FETCH_SOLUTIONS_FAIL, payload: error });
+  }
+  dispatch({ type: LOADING_FINISH });
 };
 
 export const createSolution = solution => async (dispatch, getState) => {
   const config = {
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${getState().auth.user.token}`,
     },
   };
-  console.log(solution);
-  let createdCategory;
-  try {
-    dispatch({ type: LOADING_START });
-    if (solution.categoryTite) {
-      const response = await axiosInstance.post(
+  dispatch({ type: LOADING_START });
+
+  // create new Category
+  if (solution.categoryTitle) {
+    try {
+      const { data } = await axiosInstance.post(
         '/api/categories',
-        solution.categoryTite,
+        { title: solution.categoryTitle },
         config
       );
-      createdCategory = response.data;
-      solution.categoryId = createdCategory._id;
+      solution.categoryId = data._id;
+      dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: CREATE_CATEGORY_FAIL, payload: error });
     }
-    const response = await axiosInstance.post(
+  }
+
+  // Creating new solution
+  try {
+    const { data } = await axiosInstance.post(
       '/api/solutions',
       solution,
       config
     );
-    console.log(response.data);
-
-    const payload = {
-      solution: response.data,
-    };
-    if (createdCategory) {
-      payload.category = createdCategory;
-    }
-    dispatch({ type: CREATE_SOLUTION_SUCCESS, payload });
-    dispatch({ type: LOADING_FINISH });
+    dispatch({ type: CREATE_SOLUTION_SUCCESS, payload: data });
   } catch (error) {
-    console.log(error);
     dispatch({ type: CREATE_SOLUTION_FAIL, payload: error });
-    dispatch({ type: LOADING_FINISH });
   }
+  dispatch({ type: LOADING_FINISH });
+};
+
+export const removeSolution = solutionId => async (dispatch, getState) => {
+  // const config = {
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer ${getState().auth.user.token}`,
+  //   },
+  // };
+  // dispatch({ type: LOADING_START });
+  // try {
+  //   const { data } = await axiosInstance.delete(
+  //     `api/solutions/${solutionId}`,
+  //     config
+  //   );
+  //   console.log(data);
+  // } catch (error) {
+  //   dispatch({ type: REMOVE_SOLUTION_FAIL, payload: error });
+  // }
+  // dispatch({ type: LOADING_FINISH });
 };

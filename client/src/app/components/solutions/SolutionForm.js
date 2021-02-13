@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { createSolution } from '../../../actions/solutionsActions';
-// data
-import { categories } from '../../../data/categories';
-import { solutions } from '../../../data/solutions';
 // Editor imports
 import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -23,7 +20,6 @@ import {
   TextField,
   Select,
   MenuItem,
-  FormHelperText,
   Radio,
   FormLabel,
 } from '@material-ui/core';
@@ -44,9 +40,9 @@ const BlueRadio = withStyles({
   checked: {},
 })(props => <Radio color='default' {...props} />);
 
-const SolutionForm = ({ handleFormClose, solution }) => {
-  const { user } = useSelector(state => state.auth);
+const SolutionForm = ({ handleFormClose, solution, categories }) => {
   const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
 
   const [newCategory, setNewCategory] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -76,14 +72,16 @@ const SolutionForm = ({ handleFormClose, solution }) => {
       } else {
         newSolution.categoryId = values.category;
       }
-      console.log(newSolution);
-      dispatch(createSolution(newSolution));
+      if (solution) {
+      } else {
+        dispatch(createSolution(newSolution));
+      }
+      handleFormClose(true);
     },
   });
 
   const handleRadio = isNew => {
     formik.values.category = '';
-    formik.errors.category = '';
     setNewCategory(isNew);
   };
 
@@ -154,7 +152,6 @@ const SolutionForm = ({ handleFormClose, solution }) => {
                       formik.touched.category && formik.errors.category
                     }
                   />
-                  <FormHelperText></FormHelperText>
                 </FormControl>
               ) : (
                 <span className='form__category_span'>New Category</span>
@@ -191,6 +188,7 @@ const SolutionForm = ({ handleFormClose, solution }) => {
             title='Save'
             type='submit'
             primary
+            disabled={!formik.isValid}
           >
             Save
           </Button>

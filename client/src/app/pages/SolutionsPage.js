@@ -11,15 +11,16 @@ import Solution from '../components/solutions/Solution';
 import SolutionForm from '../components/solutions/SolutionForm';
 import Loading from '../components/common/Loading';
 // Actions
-import { fetchSolutions } from '../../actions/solutionsActions';
+import { fetchSolutions, removeSolution } from '../../actions/solutionsActions';
 
-const SolutionPage = () => {
+const SolutionPage = ({ history }) => {
   const dispatch = useDispatch();
   const { loading } = useSelector(state => state.async);
-  const { categories, solutions } = useSelector(state => state.solutions);
+  const { categories } = useSelector(state => state.categories);
+  const { solutions } = useSelector(state => state.solutions);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [filteredSolutions, setFilteredSolutions] = useState([]);
+  const [filteredSolutions, setFilteredSolutions] = useState(solutions);
   const [selectedSolution, setSelectedSolution] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [formOpen, setFormOpen] = useState(false);
@@ -67,6 +68,11 @@ const SolutionPage = () => {
     setFormOpen(true);
   };
 
+  const handleDeleteSolution = solutionId => {
+    dispatch(removeSolution(solutionId));
+    history.push('/solutions');
+  };
+
   const handleFormClose = () => {
     setFormOpen(false);
   };
@@ -102,12 +108,14 @@ const SolutionPage = () => {
           <Solution
             solution={selectedSolution}
             handleModifyOpen={handleModifyOpen}
+            deleteHandler={handleDeleteSolution}
           />
         )
       ) : (
         <SolutionForm
           handleFormClose={handleFormClose}
           solution={selectedSolution}
+          categories={categories}
         />
       )}
     </div>
