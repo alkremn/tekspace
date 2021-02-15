@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 // Data
-// import { categories } from '../../data/categories';
+import { categories } from '../../data/categories';
 // import { solutions as solutionsData } from '../../data/solutions';
 // Components
 import TitleList from '../components/solutions/TitleList';
@@ -10,8 +10,11 @@ import SolutionSearch from '../components/solutions/SolutionSearch';
 import Solution from '../components/solutions/Solution';
 import SolutionForm from '../components/solutions/SolutionForm';
 import Loading from '../components/common/Loading';
+import TitleListItem from '../components/solutions/TitleListItem';
 // Actions
-import { fetchSolutions, removeSolution } from '../../actions/solutionsActions';
+import { fetchSolutions, removeSolution } from '../../actions/solutionActions';
+import { fetchCategories } from '../../actions/categoryActions';
+import { axiosInstance } from '../../api/axios';
 
 const SolutionPage = ({ history }) => {
   const dispatch = useDispatch();
@@ -26,6 +29,7 @@ const SolutionPage = ({ history }) => {
   const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
+    dispatch(fetchCategories());
     dispatch(fetchSolutions());
   }, [dispatch]);
 
@@ -34,9 +38,13 @@ const SolutionPage = ({ history }) => {
     setSelectedCategory(categoryId);
     setSelectedSolution(null);
     setSearchTerm('');
-    setFilteredSolutions(
-      solutions.filter(solution => solution.categoryId === categoryId)
-    );
+    if (categoryId === '602abeab90fb2e0713160400') {
+      setFilteredSolutions(solutions);
+    } else {
+      setFilteredSolutions(
+        solutions.filter(solution => solution.categoryId === categoryId)
+      );
+    }
   };
 
   const selectedSolutionHandler = solutionId => {
@@ -89,7 +97,7 @@ const SolutionPage = ({ history }) => {
   return (
     <div className='solutionPage'>
       <TitleList
-        items={categories}
+        items={categories.sort((a, b) => (b.title < a.title ? 1 : -1))}
         title='Categories'
         active={selectedCategory}
         action={selectedCategoryHandler}

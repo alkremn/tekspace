@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { createSolution } from '../../../actions/solutionsActions';
+import { createSolution } from '../../../actions/solutionActions';
 // Editor imports
 import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -124,11 +124,13 @@ const SolutionForm = ({
                       <em>Select category</em>
                     </MenuItem>
                     {categories &&
-                      categories.map(category => (
-                        <MenuItem key={category._id} value={category._id}>
-                          {category.title}
-                        </MenuItem>
-                      ))}
+                      categories
+                        .filter(c => c.title !== 'All Categories')
+                        .map(category => (
+                          <MenuItem key={category._id} value={category._id}>
+                            {category.title}
+                          </MenuItem>
+                        ))}
                   </Select>
                 </FormControl>
               ) : (

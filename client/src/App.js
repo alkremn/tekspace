@@ -4,7 +4,7 @@ import './styles/app.scss';
 import { Redirect, Route, Switch } from 'react-router-dom';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsers } from './actions/usersActions';
+import { fetchUsers } from './actions/userActions';
 // Components
 import Navbar from './app/components/common/Navbar';
 import Header from './app/components/common/Header';

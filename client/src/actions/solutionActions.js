@@ -1,20 +1,12 @@
 import { LOADING_START, LOADING_FINISH } from '../constants/asyncConstants';
 import {
-  FETCH_CATEGORIES_SUCCESS,
-  FETCH_CATEGORIES_FAIL,
-  CREATE_CATEGORY_SUCCESS,
-  CREATE_CATEGORY_FAIL,
-  REMOVE_CATEGORY_SUCCESS,
-  REMOVE_CATEGORY_FAIL,
-} from '../constants/categoriesConstants';
-import {
   FETCH_SOLUTIONS_SUCCESS,
   FETCH_SOLUTIONS_FAIL,
   CREATE_SOLUTION_SUCCESS,
   CREATE_SOLUTION_FAIL,
   REMOVE_SOLUTION_SUCCESS,
   REMOVE_SOLUTION_FAIL,
-} from '../constants/solutionsConstants';
+} from '../constants/solutionConstants';
 
 import { axiosInstance } from '../api/axios';
 
@@ -26,12 +18,6 @@ export const fetchSolutions = () => async (dispatch, getState) => {
     },
   };
   dispatch({ type: LOADING_START });
-  try {
-    const { data } = await axiosInstance.get('/api/categories', config);
-    dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({ type: FETCH_CATEGORIES_FAIL, payload: error });
-  }
   try {
     const { data } = await axiosInstance.get('/api/solutions', config);
     dispatch({ type: FETCH_SOLUTIONS_SUCCESS, payload: data });
@@ -50,22 +36,6 @@ export const createSolution = solution => async (dispatch, getState) => {
   };
   dispatch({ type: LOADING_START });
 
-  // create new Category
-  if (solution.categoryTitle) {
-    try {
-      const { data } = await axiosInstance.post(
-        '/api/categories',
-        { title: solution.categoryTitle },
-        config
-      );
-      solution.categoryId = data._id;
-      dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({ type: CREATE_CATEGORY_FAIL, payload: error });
-    }
-  }
-
-  // Creating new solution
   try {
     const { data } = await axiosInstance.post(
       '/api/solutions',
@@ -93,10 +63,6 @@ export const removeSolution = solutionId => async (dispatch, getState) => {
       `api/solutions/${solutionId}`,
       config
     );
-    if (data.categoryId) {
-      dispatch({ type: REMOVE_CATEGORY_SUCCESS, payload: data });
-    }
-    console.log(data);
     dispatch({ type: REMOVE_SOLUTION_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: REMOVE_SOLUTION_FAIL, payload: error });

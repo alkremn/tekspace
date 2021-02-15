@@ -2,7 +2,7 @@ import { LOADING_START, LOADING_FINISH } from '../constants/asyncConstants';
 import {
   FETCH_MESSAGES_SUCCESS,
   FETCH_MESSAGES_FAIL,
-} from '../constants/messagesConstants';
+} from '../constants/messageConstants';
 
 import { axiosInstance } from '../api/axios';
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMessages } from '../../actions/messagesActions';
+import { fetchMessages } from '../../actions/messageActions';
 import ChatMessage from '../components/chat/ChatMessage';
 import ChatUser from '../components/chat/ChatUser';
 import InputEmoji from 'react-input-emoji';

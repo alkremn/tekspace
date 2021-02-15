@@ -5,7 +5,7 @@ import {
   CREATE_CATEGORY_FAIL,
   REMOVE_CATEGORY_SUCCESS,
   REMOVE_CATEGORY_FAIL,
-} from '../constants/categoriesConstants';
+} from '../constants/categoryConstants';
 
 const initialState = {
   categories: [],

@@ -5,7 +5,7 @@ import {
   CREATE_SOLUTION_FAIL,
   REMOVE_SOLUTION_SUCCESS,
   REMOVE_SOLUTION_FAIL,
-} from '../constants/solutionsConstants';
+} from '../constants/solutionConstants';
 
 const initialState = {
   solutions: [],

@@ -1,7 +1,7 @@
 import {
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAIL,
-} from '../constants/usersConstants';
+} from '../constants/userConstants';
 
 const initialState = {
   users: [],

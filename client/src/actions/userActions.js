@@ -2,7 +2,7 @@ import { LOADING_START, LOADING_FINISH } from '../constants/asyncConstants';
 import {
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAIL,
-} from '../constants/usersConstants';
+} from '../constants/userConstants';
 
 import { axiosInstance } from '../api/axios';
 
