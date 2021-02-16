@@ -1,21 +1,31 @@
 import React from 'react';
-import Emoji from 'react-emoji-render';
 import moment from 'moment';
+import { Avatar } from '@material-ui/core';
+import { initials } from '../../../utils/converters';
 
-const ChatMessage = ({ message }) => {
-  const userId = '2342345';
+const ChatMessage = ({ message, userId }) => {
   return (
-    <p
+    <div
       className={`chatMessage ${
-        message.senderId === userId ? 'chat__receiver' : ''
+        message.sender._id === userId ? 'chat__receiver' : ''
       }`}
     >
-      <span className='chatMessage__sender'>{message.name}</span>
-      <Emoji className='chatMessage__message' text={message.message} />
-      <span className='chatMessage__timestamp'>
-        {moment(Number(message.timestamp)).startOf('second').fromNow()}
-      </span>
-    </p>
+      <div className='chatMessage__container'>
+        <Avatar
+          src={message.sender.photoUrl}
+          style={{ width: '35px', height: '35px' }}
+        >
+          {initials(message.sender.name)}
+        </Avatar>
+        <p className='chatMessage__message'>
+          <span className='chatMessage__sender'>{message.sender.name}</span>
+          {message.message}
+        </p>
+        <span className='chatMessage__timestamp'>
+          {moment(Number(message.timestamp)).startOf('second').fromNow()}
+        </span>
+      </div>
+    </div>
   );
 };
 

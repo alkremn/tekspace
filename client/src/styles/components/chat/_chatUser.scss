@@ -1,10 +1,16 @@
-.chatMembersItem {
+.chatUser {
   padding: 10px;
   display: flex;
   align-items: center;
 }
 
-.chatMembersItem__name {
+.chartUser__online {
+  font-size: x-small;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.chatUser__name {
   margin-left: 15px;
   font-size: 14px;
 }

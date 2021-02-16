@@ -1,9 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const messageSchema = new Schema({
-  senderId: {
-    type: String,
+  sender: {
+    type: Schema.Types.ObjectId,
     required: true,
+    ref: 'User',
   },
   message: {
     type: String,
@@ -16,4 +17,4 @@ const messageSchema = new Schema({
   },
 });
 
-module.exports = model('message', messageSchema);
+module.exports = model('Message', messageSchema);

@@ -24,28 +24,6 @@
   flex-direction: column;
 }
 
-.form__category {
-  display: flex;
-  flex-direction: column;
-}
-
-.form__categoryList {
-  margin-top: 10px;
-  width: 50%;
-  list-style: none;
-}
-.form__categoryList > li {
-  height: 40px;
-}
-
-.form__categoryList > li:last-child {
-  margin-top: 5px;
-}
-
-.form__category_span {
-  margin-left: 10px;
-}
-
 .MuiOutlinedInput-input {
   padding: 10px 14px !important;
 }

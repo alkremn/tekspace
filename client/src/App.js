@@ -18,6 +18,7 @@ import MessagesPage from './app/pages/MessagesPage';
 import SettingsPage from './app/pages/SettingsPage';
 // Socket.io
 import socket from './utils/socket';
+import { fetchMessages } from './actions/messageActions';
 
 function App() {
   const dispatch = useDispatch();
@@ -28,8 +29,12 @@ function App() {
       socket.auth = { token: user.token };
       socket.connect();
     }
+    socket.on('users', users => {
+      console.log(users);
+    });
     const fetchData = async () => {
       dispatch(fetchUsers());
+      dispatch(fetchMessages());
     };
     fetchData();
   }, [user, dispatch]);

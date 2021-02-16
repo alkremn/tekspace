@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Avatar, TextField } from '@material-ui/core';
-import { users } from '../../../data/users';
 
-const Profile = () => {
-  const [user] = useState(users[1]);
+const Profile = ({ user }) => {
   return (
     <div className='profile'>
       <div className='profile__content'>

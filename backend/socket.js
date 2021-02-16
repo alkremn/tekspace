@@ -27,16 +27,34 @@ exports.socket = server => {
   // Socket.io server setup
   io.on('connection', socket => {
     console.log(`${socket.userId} is connected`);
-    socket.on('disconnect', () => {
-      console.log(`${socket.userId} is disconnected`);
-    });
+    const currentUserId = socket.userId;
+    const users = [];
+    for (let [id, socket] of io.of('/').sockets) {
+      users.push({
+        userId: socket.userId,
+      });
+    }
+    io.sockets.emit('users', users);
+
     socket.on('message', async message => {
       try {
-        const createdMessage = await Message.create(message);
-        socket.emit('newMessage', createdMessage);
+        const createdMessage = await (await Message.create(message))
+          .populate('sender')
+          .execPopulate('name photoUrl');
+
+        io.sockets.emit('newMessage', createdMessage);
       } catch (error) {
         console.log(error);
       }
+    });
+    socket.on('disconnect', () => {
+      console.log(`${socket.userId} is disconnected`);
+      for (let [id, socket] of io.of('/').sockets) {
+        users.push({
+          userId: socket.userId,
+        });
+      }
+      io.sockets.emit('users', users);
     });
   });
 };

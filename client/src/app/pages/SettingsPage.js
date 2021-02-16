@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+// Redux
+import { useSelector } from 'react-redux';
 import Profile from '../components/settings/Profile';
 import MenuOption from '../components/common/MenuOption';
 
@@ -7,6 +9,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import { RiAdminFill } from 'react-icons/ri';
 
 const SettingsPage = () => {
+  const { user } = useSelector(state => state.auth);
   const [menuOption, setMenuOption] = useState({
     profile: true,
     admin: false,
@@ -31,7 +34,7 @@ const SettingsPage = () => {
           />
         </li>
       </ul>
-      {menuOption.profile && <Profile />}
+      {menuOption.profile && <Profile user={user}/>}
     </div>
   );
 };
