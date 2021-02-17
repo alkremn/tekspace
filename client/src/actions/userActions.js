@@ -18,7 +18,13 @@ export const fetchUsers = () => async (dispatch, getState) => {
     const { data } = await axiosInstance.get('/api/users', config);
     dispatch({ type: FETCH_USERS_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: FETCH_USERS_FAIL, payload: error });
+    dispatch({
+      type: FETCH_USERS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
   dispatch({ type: LOADING_FINISH });
 };

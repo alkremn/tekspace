@@ -17,7 +17,13 @@ export const fetchCategories = () => async (dispatch, getState) => {
     const { data } = await axiosInstance.get('/api/categories', config);
     dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: FETCH_CATEGORIES_FAIL, payload: error });
+    dispatch({
+      type: FETCH_CATEGORIES_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
   dispatch({ type: LOADING_FINISH });
 };

@@ -97,7 +97,7 @@ const SolutionPage = ({ history }) => {
   return (
     <div className='solutionPage'>
       <TitleList
-        items={categories.sort((a, b) => (b.title < a.title ? 1 : -1))}
+        items={categories?.sort((a, b) => (b.title < a.title ? 1 : -1))}
         title='Categories'
         active={selectedCategory}
         action={selectedCategoryHandler}

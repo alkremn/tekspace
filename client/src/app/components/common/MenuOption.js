@@ -1,13 +1,16 @@
 import React from 'react';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-const MenuOption = ({ Icon, title, active }) => {
+const MenuOption = ({ Icon, title, active, onClick }) => {
   return (
-    <div className={`menuOption ${active ? 'active' : ''}`}>
-      <Icon className='menuOption__icon' />
+    <button
+      className={`menuOption ${active ? 'active' : ''}`}
+      onClick={onClick}
+    >
+      <Icon className='menuOption__icon editIcon' />
       <span className='menuOption__title'>{title}</span>
-      {active && <ArrowForwardIosIcon />}
-    </div>
+      {active && <ArrowForwardIosIcon className='menuOption__arrow' />}
+    </button>
   );
 };
 

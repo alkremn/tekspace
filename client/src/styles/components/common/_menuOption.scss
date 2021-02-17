@@ -1,13 +1,30 @@
 .menuOption {
+  position: relative;
+  background-color: transparent;
+  width: 100%;
+  border: none;
   display: flex;
-  padding: 10px;
+  color: #989898;
   align-items: center;
+  padding: 10px 10px;
+  cursor: pointer;
+}
+.menuOption:focus {
+  outline: none;
+}
+.active {
+  color: #585c62;
+  font-weight: bold;
 }
 
 .menuOption__icon {
-  
+  font-size: 20px;
+  margin-right: 10px;
+}
+.editIcon {
 }
 
-.menuOption__title {
-  flex: 1;
+.menuOption__arrow {
+  position: absolute;
+  right: 2px;
 }

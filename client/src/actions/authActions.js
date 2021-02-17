@@ -14,12 +14,18 @@ export const loginAction = credentials => async dispatch => {
     localStorage.setItem('userInfo', JSON.stringify(response.data));
     dispatch({ type: LOADING_FINISH });
   } catch (error) {
-    dispatch({ type: AUTH_FAIL, payload: error.response.data });
+    dispatch({
+      type: AUTH_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
     dispatch({ type: LOADING_FINISH });
   }
 };
 
-
 export const logoutAction = () => async dispatch => {
-
-}
+  dispatch({ type: AUTH_LOGOUT });
+  localStorage.removeItem('userInfo');
+};

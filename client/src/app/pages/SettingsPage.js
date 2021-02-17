@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 // Redux
 import { useSelector } from 'react-redux';
+// Components
 import Profile from '../components/settings/Profile';
 import MenuOption from '../components/common/MenuOption';
+import AdminSettings from '../components/settings/AdminSettings';
 
 //icons
-import PersonIcon from '@material-ui/icons/Person';
-import { RiAdminFill } from 'react-icons/ri';
+import { MdModeEdit } from 'react-icons/md';
+import { FaUnlock } from 'react-icons/fa';
 
 const SettingsPage = () => {
   const { user } = useSelector(state => state.auth);
@@ -21,20 +23,25 @@ const SettingsPage = () => {
           <MenuOption
             title='Profile'
             setMenuOption={setMenuOption}
-            Icon={PersonIcon}
-            active
+            Icon={MdModeEdit}
+            active={menuOption.profile}
+            onClick={() => setMenuOption({ profile: true, admin: false })}
           />
         </li>
-        <li>
-          <MenuOption
-            title='Admin Settings'
-            setMenuOption={setMenuOption}
-            Icon={RiAdminFill}
-            active
-          />
-        </li>
+        {user.isAdmin && (
+          <li>
+            <MenuOption
+              title='Admin Settings'
+              setMenuOption={setMenuOption}
+              Icon={FaUnlock}
+              active={menuOption.admin}
+              onClick={() => setMenuOption({ profile: false, admin: true })}
+            />
+          </li>
+        )}
       </ul>
-      {menuOption.profile && <Profile user={user}/>}
+      {menuOption.profile && <Profile user={user} />}
+      {menuOption.admin && <AdminSettings />}
     </div>
   );
 };

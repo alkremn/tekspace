@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from './Link';
 import logo from '../../../assets/logo-inverted.svg';
+// Redux
+import { useDispatch } from 'react-redux';
+import { logoutAction } from '../../../actions/authActions';
 //icons
 import { RiDashboardLine } from 'react-icons/ri';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -11,8 +14,22 @@ import { BsChatDotsFill } from 'react-icons/bs';
 import { IoSettingsSharp } from 'react-icons/io5';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import AssessmentIcon from '@material-ui/icons/Assessment';
+import { Button, Modal } from 'semantic-ui-react';
 
-const Navbar = () => {
+const Navbar = ({ setTitle }) => {
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const logoutHandler = logout => {
+    if (logout) {
+      dispatch(logoutAction());
+      localStorage.removeItem('userInfo');
+      setOpen(false);
+    } else {
+      setOpen(false);
+    }
+  };
+
   return (
     <div className='navbar'>
       <div className='navbar__header'>
@@ -20,33 +37,80 @@ const Navbar = () => {
       </div>
       <ul className='navbar__links'>
         <li>
-          <Link to='/overview' title='Overview' Icon={RiDashboardLine} />
+          <Link
+            to='/overview'
+            title='Overview'
+            setTitle={setTitle}
+            Icon={RiDashboardLine}
+          />
         </li>
         <li>
-          <Link to='/team' title='Team' Icon={RiTeamFill} />
+          <Link to='/team' title='Team' setTitle={setTitle} Icon={RiTeamFill} />
+        </li>
+        {/* <li>
+          <Link to='/tasks' title='Tasks'   setTitle={setTitle} Icon={AssignmentTurnedInIcon} />
+        </li> */}
+        <li>
+          <Link
+            to='/solutions'
+            title='Solutions'
+            setTitle={setTitle}
+            Icon={ImBooks}
+          />
         </li>
         <li>
-          <Link to='/tasks' title='Tasks' Icon={AssignmentTurnedInIcon} />
+          <Link
+            to='/second'
+            title='Escalations'
+            setTitle={setTitle}
+            Icon={PublishIcon}
+          />
         </li>
         <li>
-          <Link to='/solutions' title='Solutions' Icon={ImBooks} />
+          <Link
+            to='/messages'
+            title='Messages'
+            setTitle={setTitle}
+            Icon={BsChatDotsFill}
+          />
         </li>
         <li>
-          <Link to='/second' title='Escalations' Icon={PublishIcon} />
+          <Link
+            to='/reports'
+            title='Reports'
+            setTitle={setTitle}
+            Icon={AssessmentIcon}
+          />
         </li>
         <li>
-          <Link to='/messages' title='Messages' Icon={BsChatDotsFill} />
-        </li>
-        <li>
-          <Link to='/reports' title='Reports' Icon={AssessmentIcon} />
-        </li>
-        <li>
-          <Link to='/settings' title='Settings' Icon={IoSettingsSharp} />
+          <Link
+            to='/settings'
+            title='Settings'
+            setTitle={setTitle}
+            Icon={IoSettingsSharp}
+          />
         </li>
       </ul>
       <div className='navbar__bottom'>
-        <Link to='/logout' title='Logout' Icon={IoExitOutline} />
+        <button className='navbar__logoutButton' onClick={() => setOpen(true)}>
+          <IoExitOutline className='navbar__link-icon' />
+          Logout
+        </button>
       </div>
+      <Modal size='mini' open={open} onClose={() => setOpen(false)}>
+        <Modal.Header>Logout</Modal.Header>
+        <Modal.Content>
+          <p>Are you sure you want to logout?</p>
+        </Modal.Content>
+        <Modal.Actions>
+          <Button color='red' onClick={() => logoutHandler(false)}>
+            No
+          </Button>
+          <Button color='green' onClick={() => logoutHandler(true)}>
+            Yes
+          </Button>
+        </Modal.Actions>
+      </Modal>
     </div>
   );
 };

@@ -22,7 +22,13 @@ export const fetchSolutions = () => async (dispatch, getState) => {
     const { data } = await axiosInstance.get('/api/solutions', config);
     dispatch({ type: FETCH_SOLUTIONS_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: FETCH_SOLUTIONS_FAIL, payload: error });
+    dispatch({
+      type: FETCH_SOLUTIONS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
   dispatch({ type: LOADING_FINISH });
 };

@@ -19,7 +19,13 @@ export const fetchMessages = () => async (dispatch, getState) => {
     const { data } = await axiosInstance.get('/api/messages', config);
     dispatch({ type: FETCH_MESSAGES_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: FETCH_MESSAGES_FAIL, payload: error });
+    dispatch({
+      type: FETCH_MESSAGES_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
   dispatch({ type: LOADING_FINISH });
 };

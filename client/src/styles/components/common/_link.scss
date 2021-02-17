@@ -7,8 +7,10 @@
   opacity: 0.7;
   transition: opacity 0.1s ease-in;
   transition: border-right 0.2s ease-in;
+  outline: 0;
   &:hover {
     opacity: 1;
+    color: white;
   }
   &.active:hover {
     opacity: 1;
@@ -18,13 +20,34 @@
   }
 }
 
+.navbar__logoutButton {
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  opacity: 0.7;
+  font-weight: bold;
+  &:hover {
+    opacity: 1;
+  }
+  &.active:hover {
+    opacity: 1;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
 .navbar__link-icon {
   width: 24px;
   height: 24px;
   margin-right: 15px;
 }
 
-.active {
+.active-link {
   opacity: 1;
   border-right: 4px solid white;
 }

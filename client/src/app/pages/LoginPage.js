@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import logoIcon from '../../assets/logo.svg';
+import logoIcon from '../../assets/Logo.svg';
 import { FcGoogle } from 'react-icons/fc';
 import Button from '../components/common/Button';
 import { motion } from 'framer-motion';
@@ -119,7 +119,7 @@ const LoginPage = () => {
         onClose={() => setOpen(false)}
       >
         <MuiAlert elevation={6} variant='filled' severity='error'>
-          {error?.message}
+          {error}
         </MuiAlert>
       </Snackbar>
     </div>

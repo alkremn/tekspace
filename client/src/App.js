@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles/app.scss';
 // Router
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUsers } from './actions/userActions';
@@ -22,21 +22,22 @@ import { fetchMessages } from './actions/messageActions';
 
 function App() {
   const dispatch = useDispatch();
+  const [title, setTitle] = useState('Overview');
   const { user } = useSelector(state => state.auth);
 
   useEffect(() => {
-    if (user) {
-      socket.auth = { token: user.token };
-      socket.connect();
-    }
-    socket.on('users', users => {
-      console.log(users);
-    });
     const fetchData = async () => {
       dispatch(fetchUsers());
       dispatch(fetchMessages());
     };
-    fetchData();
+    if (user) {
+      socket.auth = { token: user.token };
+      socket.connect();
+      fetchData();
+      socket.on('users', users => {
+        console.log(users);
+      });
+    }
   }, [user, dispatch]);
 
   return (
@@ -45,8 +46,8 @@ function App() {
         <LoginPage />
       ) : (
         <div className='content'>
-          <Navbar />
-          <Header />
+          <Navbar setTitle={setTitle} />
+          <Header title={title} />
           <Switch>
             <Route exact path='/'>
               <Redirect to='/overview' />

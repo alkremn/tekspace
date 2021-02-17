@@ -1,0 +1,66 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Table, Checkbox } from 'semantic-ui-react';
+import { Avatar } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { initials } from '../../../utils/converters';
+
+const AdminSettings = () => {
+  const { users } = useSelector(state => state.users);
+
+  const handleDelete = userId => {};
+  const handleEdit = userId => {};
+
+  return (
+    <div className='adminSettings'>
+      <h1>Admin Settings</h1>
+      <h2>Team members</h2>
+      <Table celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>E-mail address</Table.HeaderCell>
+            <Table.HeaderCell>Tier 2</Table.HeaderCell>
+            <Table.HeaderCell>Admin</Table.HeaderCell>
+            <Table.HeaderCell>Edit</Table.HeaderCell>
+            <Table.HeaderCell>Remove</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
+          {users.map(user => (
+            <Table.Row key={user._id}>
+              <Table.Cell>
+                <p className='adminSettings__userName'>
+                  <Avatar src={user.photoUrl}>{initials(user.name)}</Avatar>
+                  <span>{user.name}</span>
+                </p>
+              </Table.Cell>
+              <Table.Cell>{user.email}</Table.Cell>
+              <Table.Cell>
+                <Checkbox checked={user.isSecond} />
+              </Table.Cell>
+              <Table.Cell>
+                <Checkbox checked={user.isAdmin} />
+              </Table.Cell>
+              <Table.Cell>
+                <IconButton onClick={() => handleEdit(user._id)}>
+                  <EditIcon />
+                </IconButton>
+              </Table.Cell>
+              <Table.Cell>
+                <IconButton onClick={() => handleDelete(user._id)}>
+                  <DeleteIcon />
+                </IconButton>
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </div>
+  );
+};
+
+export default AdminSettings;
