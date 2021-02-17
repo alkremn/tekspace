@@ -18,7 +18,7 @@ const callOptions = {
 const agentOptions = {
   title: {
     display: true,
-    text: 'Call Count',
+    text: '# of calls per week',
     fontSize: 18,
   },
   responsive: true,
@@ -70,6 +70,10 @@ const OverviewPage = () => {
           data={callsPerAgent}
           options={agentOptions}
         />
+      </div>
+      <div className='overview__callsPerAgent-info'>
+        <h1>1722</h1>
+        <span>Total Calls in 2021</span>
       </div>
       <div className='overview__utilization'>
         <Line

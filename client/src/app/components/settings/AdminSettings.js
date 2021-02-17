@@ -33,10 +33,10 @@ const AdminSettings = () => {
           {users.map(user => (
             <Table.Row key={user._id}>
               <Table.Cell>
-                <p className='adminSettings__userName'>
+                <div className='adminSettings__userName'>
                   <Avatar src={user.photoUrl}>{initials(user.name)}</Avatar>
                   <span>{user.name}</span>
-                </p>
+                </div>
               </Table.Cell>
               <Table.Cell>{user.email}</Table.Cell>
               <Table.Cell>

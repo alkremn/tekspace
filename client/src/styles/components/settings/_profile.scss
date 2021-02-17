@@ -14,12 +14,36 @@
     margin: 0 0 0 20px;
   }
 }
-
-.profile__avatar {
-  align-self: center;
+.avatar__container {
+  position: relative;
   margin: 40px 0;
+  align-self: center;
+  width: 150px;
+  height: 150px;
+}
+.profile__avatar {
   width: 150px !important;
   height: 150px !important;
+}
+
+.avatar__pencilDiv {
+  position: absolute;
+  padding: 6px;
+  border-radius: 50%;
+  bottom: -5px;
+  right: 10px;
+  display: flex;
+  background-color: #3f90f3;
+  transition: transform 0.3s ease-in;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.avatar__pencil {
+  color: #fff;
+  font-size: 30px !important;
 }
 
 .profile_name {

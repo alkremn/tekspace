@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Link from './Link';
 import logo from '../../../assets/logo-inverted.svg';
 // Redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutAction } from '../../../actions/authActions';
 //icons
 import { RiDashboardLine } from 'react-icons/ri';
@@ -17,6 +17,7 @@ import AssessmentIcon from '@material-ui/icons/Assessment';
 import { Button, Modal } from 'semantic-ui-react';
 
 const Navbar = ({ setTitle }) => {
+  const { user } = useSelector(state => state.auth);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -74,14 +75,16 @@ const Navbar = ({ setTitle }) => {
             Icon={BsChatDotsFill}
           />
         </li>
-        <li>
-          <Link
-            to='/reports'
-            title='Reports'
-            setTitle={setTitle}
-            Icon={AssessmentIcon}
-          />
-        </li>
+        {user.isAdmin && (
+          <li>
+            <Link
+              to='/reports'
+              title='Reports'
+              setTitle={setTitle}
+              Icon={AssessmentIcon}
+            />
+          </li>
+        )}
         <li>
           <Link
             to='/settings'
