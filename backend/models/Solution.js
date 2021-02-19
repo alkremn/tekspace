@@ -9,11 +9,6 @@ const solutionSchema = new Schema(
     description: {
       type: String,
     },
-    categoryId: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: 'category',
-    },
     images: {
       type: [String],
     },
@@ -21,6 +16,10 @@ const solutionSchema = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'user',
+    },
+    category: {
+      type: String,
+      required: true,
     },
   },
   {

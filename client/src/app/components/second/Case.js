@@ -17,7 +17,6 @@ const Case = ({
   id,
   title,
   caseNumber,
-  className,
   description,
   createdDate,
   createdBy,
@@ -28,15 +27,15 @@ const Case = ({
 }) => {
   return (
     <li
-      className={className}
+      className='case'
       {...draggableProps}
       {...dragHandleProps}
       ref={innerRef}
     >
-      <Avatar>AK</Avatar>
       <h1 className='case__title'>{title}</h1>
       <span>{new Date(Number(createdDate)).toDateString()}</span>
       <p className='case__description'>{shrinkDescription(description, 100)}</p>
+      <Avatar>AK</Avatar>
     </li>
   );
 };

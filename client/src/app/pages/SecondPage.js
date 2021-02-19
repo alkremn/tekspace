@@ -74,7 +74,6 @@ const SecondPage = () => {
                     >
                       {provided => (
                         <Case
-                          className='case draggable'
                           draggableProps={provided.draggableProps}
                           dragHandleProps={provided.dragHandleProps}
                           innerRef={provided.innerRef}

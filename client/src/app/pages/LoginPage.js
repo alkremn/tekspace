@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
+// Icons
 import logoIcon from '../../assets/Logo.svg';
 import { FcGoogle } from 'react-icons/fc';
+// Components
 import Button from '../components/common/Button';
 import { motion } from 'framer-motion';
-import { loginAction } from '../../actions/authActions';
 import { FormControl, TextField, Snackbar } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import Alert from '@material-ui/lab/Alert';
+import GoogleLogin from 'react-google-login';
+// Actions
+import { loginAction, loginWithGoogleAction } from '../../actions/authActions';
 
 // Validation
 import * as yup from 'yup';
@@ -22,6 +27,7 @@ const LoginPage = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { error } = useSelector(state => state.auth);
+  const { loading } = useSelector(state => state.async);
 
   // Formik
   const formik = useFormik({
@@ -34,6 +40,11 @@ const LoginPage = () => {
       dispatch(loginAction(values));
     },
   });
+
+  //Google login handler
+  const responseGoogle = response => {
+    dispatch(loginWithGoogleAction(response));
+  };
 
   useEffect(() => {
     if (error) {
@@ -52,6 +63,11 @@ const LoginPage = () => {
         exit={{ scale: 0.3, opacity: 0 }}
       >
         <img className='login__icon' src={logoIcon} alt='logo' />
+        {error && (
+          <Alert severity='error' style={{ width: '80%' }}>
+            {error}
+          </Alert>
+        )}
         <form className='login__form' onSubmit={formik.handleSubmit}>
           <FormControl style={{ width: '100%' }}>
             <TextField
@@ -89,6 +105,7 @@ const LoginPage = () => {
             width='320'
             height='45'
             type='submit'
+            loading={loading}
           >
             Log In
           </Button>
@@ -101,18 +118,28 @@ const LoginPage = () => {
           action='http://localhost:5000/api/v1/auth/google'
           method='GET'
         >
-          <Button
-            className='login__google-button'
-            height='40'
-            width='320'
-            primary
-          >
-            <FcGoogle className='login__google-icon' />
-            Log In With Google
-          </Button>
+          <GoogleLogin
+            render={renderProps => (
+              <Button
+                onClick={renderProps.onClick}
+                className='login__google-button'
+                height='40'
+                width='320'
+                primary
+                disabled={renderProps.disabled}
+              >
+                <FcGoogle className='login__google-icon' />
+                Log In With Google
+              </Button>
+            )}
+            buttonText='Log in with Google'
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+          />
         </form>
       </motion.div>
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={open}
         autoHideDuration={6000}
@@ -121,7 +148,7 @@ const LoginPage = () => {
         <MuiAlert elevation={6} variant='filled' severity='error'>
           {error}
         </MuiAlert>
-      </Snackbar>
+      </Snackbar> */}
     </div>
   );
 };

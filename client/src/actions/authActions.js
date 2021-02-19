@@ -9,7 +9,37 @@ import { axiosInstance } from '../api/axios';
 export const loginAction = credentials => async dispatch => {
   dispatch({ type: LOADING_START });
   try {
-    const response = await axiosInstance.post('api/users/login', credentials);
+    const response = await axiosInstance.post('api/auth/login', credentials);
+    dispatch({ type: AUTH_SUCCESS, payload: response.data });
+    localStorage.setItem('userInfo', JSON.stringify(response.data));
+    dispatch({ type: LOADING_FINISH });
+  } catch (error) {
+    dispatch({
+      type: AUTH_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+    dispatch({ type: LOADING_FINISH });
+  }
+};
+
+export const loginWithGoogleAction = googleData => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  dispatch({ type: LOADING_START });
+  try {
+    const response = await axiosInstance.post(
+      'api/auth/google',
+      {
+        token: googleData.tokenId,
+      },
+      config
+    );
     dispatch({ type: AUTH_SUCCESS, payload: response.data });
     localStorage.setItem('userInfo', JSON.stringify(response.data));
     dispatch({ type: LOADING_FINISH });

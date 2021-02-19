@@ -8,7 +8,6 @@ import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import Button from '../common/Button';
 import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
 
 // Validation
 import * as yup from 'yup';
@@ -20,13 +19,25 @@ import {
   TextField,
   Select,
   MenuItem,
-  InputLabel,
+  Radio,
+  FormLabel,
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 const validationSchema = yup.object({
   category: yup.string('Select category').required('Category is required'),
   title: yup.string().required('Title is required'),
 });
+
+const BlueRadio = withStyles({
+  root: {
+    color: '#3d8ee1',
+    '&$checked': {
+      color: '#3d8ee1',
+    },
+  },
+  checked: {},
+})(props => <Radio color='default' {...props} />);
 
 const SolutionForm = ({
   handleFormClose,
@@ -37,6 +48,7 @@ const SolutionForm = ({
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
 
+  const [newCategory, setNewCategory] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const handleEditorState = newState => {
@@ -61,14 +73,18 @@ const SolutionForm = ({
         categoryId: values.category,
       };
 
-      if (solution) {
+      if (newCategory) {
+        newSolution.categoryTitle = values.category;
       } else {
-        dispatch(createSolution(newSolution));
+        newSolution.categoryId = values.category;
       }
-      handleSaveSolution();
-      handleFormClose(true);
     },
   });
+
+  const handleRadio = isNew => {
+    formik.values.category = '';
+    setNewCategory(isNew);
+  };
 
   return (
     <div className='solutionForm'>
@@ -77,30 +93,74 @@ const SolutionForm = ({
       </h1>
       <form className='solutionForm__form' onSubmit={formik.handleSubmit}>
         <div className='form__category'>
-          <FormControl style={{ width: '50%' }}>
-            <Select
-              id='category'
-              name='category'
-              placeholder='Select Category'
-              value={formik.values.category}
-              onChange={formik.handleChange}
-              variant='outlined'
-              displayEmpty
-              error={formik.touched.category && Boolean(formik.errors.category)}
-            >
-              <MenuItem value='' disabled>
-                <em>Select category</em>
-              </MenuItem>
-              {categories &&
-                categories
-                  .filter(c => c.title !== 'All Categories')
-                  .map(category => (
-                    <MenuItem key={category._id} value={category._id}>
-                      {category.title}
+          <FormLabel>Category</FormLabel>
+          <ul className='form__categoryList'>
+            <li>
+              <BlueRadio
+                checked={!newCategory}
+                onChange={() => handleRadio(false)}
+                name='radio-button-demo'
+              />
+              {!newCategory ? (
+                <FormControl style={{ width: '88%' }}>
+                  <Select
+                    id='category'
+                    name='category'
+                    placeholder='Select Category'
+                    value={formik.values.category}
+                    onChange={formik.handleChange}
+                    variant='outlined'
+                    displayEmpty
+                    error={
+                      formik.touched.category && Boolean(formik.errors.category)
+                    }
+                  >
+                    <MenuItem value='' disabled>
+                      <em>Select category</em>
                     </MenuItem>
-                  ))}
-            </Select>
-          </FormControl>
+                    {categories &&
+                      categories
+                        .filter(c => c.title !== 'All Categories')
+                        .map(category => (
+                          <MenuItem key={category._id} value={category._id}>
+                            {category.title}
+                          </MenuItem>
+                        ))}
+                  </Select>
+                </FormControl>
+              ) : (
+                <span className='form__category_span'>Select Category</span>
+              )}
+            </li>
+            <li>
+              <BlueRadio
+                checked={newCategory}
+                onChange={() => handleRadio(true)}
+                name='radio-button-demo'
+              />
+              {newCategory ? (
+                <FormControl style={{ width: '88%' }}>
+                  <TextField
+                    id='category'
+                    name='category'
+                    value={formik.values.category}
+                    onChange={formik.handleChange}
+                    label='New Category'
+                    variant='outlined'
+                    size='small'
+                    error={
+                      formik.touched.category && Boolean(formik.errors.category)
+                    }
+                    helperText={
+                      formik.touched.category && formik.errors.category
+                    }
+                  />
+                </FormControl>
+              ) : (
+                <span className='form__category_span'>New Category</span>
+              )}
+            </li>
+          </ul>
         </div>
         <div className='form__titleDiv'>
           <FormControl className='form__title'>

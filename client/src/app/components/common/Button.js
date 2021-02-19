@@ -1,4 +1,5 @@
 import React from 'react';
+import { Loader } from 'semantic-ui-react';
 
 const Button = ({
   className,
@@ -9,6 +10,7 @@ const Button = ({
   onClick,
   disabled,
   width,
+  loading,
   height,
 }) => {
   return (
@@ -23,7 +25,11 @@ const Button = ({
         backgroundColor: color,
       }}
     >
-      {children}
+      {loading ? (
+        <Loader className='button__loader' active={loading} inverted />
+      ) : (
+        children
+      )}
     </button>
   );
 };

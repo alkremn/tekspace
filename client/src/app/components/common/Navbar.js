@@ -15,6 +15,7 @@ import { IoSettingsSharp } from 'react-icons/io5';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import { Button, Modal } from 'semantic-ui-react';
+import { GoogleLogout } from 'react-google-login';
 
 const Navbar = ({ setTitle }) => {
   const { user } = useSelector(state => state.auth);
@@ -109,9 +110,16 @@ const Navbar = ({ setTitle }) => {
           <Button color='red' onClick={() => logoutHandler(false)}>
             No
           </Button>
-          <Button color='green' onClick={() => logoutHandler(true)}>
-            Yes
-          </Button>
+          <GoogleLogout
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            buttonText='Logout'
+            onLogoutSuccess={() => logoutHandler(true)}
+            render={renderProps => (
+              <Button color='green' onClick={renderProps.onClick}>
+                Yes
+              </Button>
+            )}
+          ></GoogleLogout>
         </Modal.Actions>
       </Modal>
     </div>

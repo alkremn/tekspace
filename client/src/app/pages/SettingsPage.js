@@ -9,12 +9,13 @@ import AdminSettings from '../components/settings/AdminSettings';
 //icons
 import { MdModeEdit } from 'react-icons/md';
 import { FaUnlock } from 'react-icons/fa';
+import AvatarCropper from '../components/settings/AvatarCropper';
 
 const SettingsPage = () => {
   const { user } = useSelector(state => state.auth);
   const [menuOption, setMenuOption] = useState({
-    profile: true,
-    admin: false,
+    profile: false,
+    admin: true,
   });
   return (
     <div className='settings'>
@@ -31,7 +32,7 @@ const SettingsPage = () => {
         {user.isAdmin && (
           <li>
             <MenuOption
-              title='Admin Settings'
+              title='Admin'
               setMenuOption={setMenuOption}
               Icon={FaUnlock}
               active={menuOption.admin}
@@ -41,6 +42,7 @@ const SettingsPage = () => {
         )}
       </ul>
       {menuOption.profile && <Profile user={user} />}
+      {/* {menuOption.profile && <AvatarCropper user={user.photoUrl} />} */}
       {menuOption.admin && <AdminSettings />}
     </div>
   );

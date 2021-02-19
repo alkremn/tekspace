@@ -19,8 +19,9 @@ import SettingsPage from './app/pages/SettingsPage';
 // Socket.io
 import socket from './utils/socket';
 import { fetchMessages } from './actions/messageActions';
+import { withRouter } from 'react-router-dom';
 
-function App() {
+function App({ history }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState('Overview');
   const { user } = useSelector(state => state.auth);
@@ -30,15 +31,18 @@ function App() {
       dispatch(fetchUsers());
       dispatch(fetchMessages());
     };
-    if (user) {
+    if (!user) {
+      history.push('/login');
+    } else {
       socket.auth = { token: user.token };
       socket.connect();
       fetchData();
       socket.on('users', users => {
         console.log(users);
       });
+      history.push('/overview');
     }
-  }, [user, dispatch]);
+  }, [user, dispatch, history]);
 
   return (
     <div className='app'>
@@ -65,4 +69,4 @@ function App() {
   );
 }
 
-export default App;
+export default withRouter(App);
