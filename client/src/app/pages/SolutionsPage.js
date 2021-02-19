@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-// Data
-import { categories } from '../../data/categories';
-// import { solutions as solutionsData } from '../../data/solutions';
 // Components
 import TitleList from '../components/solutions/TitleList';
 import SolutionSearch from '../components/solutions/SolutionSearch';
@@ -13,41 +10,52 @@ import Loading from '../components/common/Loading';
 import TitleListItem from '../components/solutions/TitleListItem';
 // Actions
 import { fetchSolutions, removeSolution } from '../../actions/solutionActions';
-import { fetchCategories } from '../../actions/categoryActions';
-import { axiosInstance } from '../../api/axios';
 
-const SolutionPage = ({ history }) => {
+const SolutionPage = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector(state => state.async);
-  const { categories } = useSelector(state => state.categories);
   const { solutions } = useSelector(state => state.solutions);
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [filteredSolutions, setFilteredSolutions] = useState(solutions);
   const [selectedSolution, setSelectedSolution] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchCategories());
     dispatch(fetchSolutions());
   }, [dispatch]);
 
-  const selectedCategoryHandler = categoryId => {
+  useEffect(() => {
+    const categories = [];
+    solutions.forEach(solution => categories.push(solution.category));
+    const filteredCategories = Array.from(
+      new Set(categories.map(c => c._id))
+    ).map(id => {
+      return {
+        _id: id,
+        title: categories.find(c => c._id === id).title,
+      };
+    });
+    setCategories(filteredCategories);
+  }, [solutions]);
+
+  const handleSelectedCategory = categoryId => {
     setFormOpen(false);
     setSelectedCategory(categoryId);
     setSelectedSolution(null);
     setSearchTerm('');
-    if (categoryId === '602abeab90fb2e0713160400') {
+    if (categoryId === '') {
       setFilteredSolutions(solutions);
     } else {
       setFilteredSolutions(
-        solutions.filter(solution => solution.categoryId === categoryId)
+        solutions.filter(solution => solution.category._id === categoryId)
       );
     }
   };
 
-  const selectedSolutionHandler = solutionId => {
+  const handleSelectedSolution = solutionId => {
     setFormOpen(false);
     setSelectedSolution(
       solutions.find(solution => solution._id === solutionId)
@@ -80,8 +88,16 @@ const SolutionPage = ({ history }) => {
     setFormOpen(true);
   };
 
+  const handleEditSolution = solutionId => {
+    setFormOpen(true);
+    setSelectedSolution(
+      solutions.find(solution => solution._id === solutionId)
+    );
+  };
+
   const handleDeleteSolution = solutionId => {
     dispatch(removeSolution(solutionId));
+    setSelectedCategory('');
     setSelectedSolution(null);
     setFilteredSolutions(
       solutions.filter(solution => solution._id !== solutionId)
@@ -96,13 +112,25 @@ const SolutionPage = ({ history }) => {
 
   return (
     <div className='solutionPage'>
-      <TitleList
-        items={categories?.sort((a, b) => (b.title < a.title ? 1 : -1))}
-        title='Categories'
-        active={selectedCategory}
-        action={selectedCategoryHandler}
-        isCategories
-      />
+      <div className='titleList categories'>
+        <h2 className='titleList__title'>Categories</h2>
+        <div className='titleList__titles'>
+          <TitleListItem
+            item={{ _id: '', title: 'All Categories' }}
+            active={selectedCategory === ''}
+            action={handleSelectedCategory}
+          />
+          {categories &&
+            categories.map(category => (
+              <TitleListItem
+                key={category._id}
+                item={category}
+                active={category._id === selectedCategory}
+                action={handleSelectedCategory}
+              />
+            ))}
+        </div>
+      </div>
       <SolutionSearch
         searchValue={searchTerm}
         onChange={searchHandler}
@@ -112,13 +140,14 @@ const SolutionPage = ({ history }) => {
         items={filteredSolutions}
         title='Solutions'
         active={selectedSolution?._id}
-        action={selectedSolutionHandler}
+        action={handleSelectedSolution}
       />
       {!formOpen ? (
         selectedSolution && (
           <Solution
             solution={selectedSolution}
-            deleteHandler={handleDeleteSolution}
+            handleEdit={handleEditSolution}
+            handleDelete={handleDeleteSolution}
           />
         )
       ) : (

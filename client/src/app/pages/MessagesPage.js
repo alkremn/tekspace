@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addMessage, fetchMessages } from '../../actions/messageActions';
 import ChatMessage from '../components/chat/ChatMessage';
 import ChatUser from '../components/chat/ChatUser';
-import InputEmoji from 'react-input-emoji';
+import Picker from 'emoji-picker-react';
 import { RiSendPlaneFill } from 'react-icons/ri';
 import socket from '../../utils/socket';
 
@@ -13,7 +13,6 @@ const MessagesPage = () => {
   const { users } = useSelector(state => state.users);
   const { messages } = useSelector(state => state.messages);
   const [message, setMessage] = useState('');
-  const [typing, setTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -28,10 +27,10 @@ const MessagesPage = () => {
     dispatch(fetchMessages());
     scrollToBottom();
     socket.on('newMessage', async newMessage => {
+      console.log(newMessage);
       dispatch(addMessage(newMessage));
     });
-
-    return () => socket.disconnect();
+    return () => socket.off('newMessage');
   }, [dispatch]);
 
   const onEnterHandler = e => {
@@ -46,6 +45,10 @@ const MessagesPage = () => {
         setMessage('');
       }
     }
+  };
+
+  const onEmojiClick = (event, emojiObject) => {
+    setMessage(message + emojiObject.emoji);
   };
 
   return (
@@ -70,6 +73,7 @@ const MessagesPage = () => {
               placeholder='Type a message'
             />
           </div>
+          <Picker onEmojiClick={onEmojiClick} />
           <button className='chat__form-button' onClick={onEnterHandler}>
             <RiSendPlaneFill className='chat__form-icon' />
           </button>

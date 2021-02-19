@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
 import { createSolution } from '../../../actions/solutionActions';
@@ -6,8 +6,11 @@ import { createSolution } from '../../../actions/solutionActions';
 import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import Button from '../common/Button';
 import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+// Components
+import Button from '../common/Button';
+import { v4 as uuid } from 'uuid';
 
 // Validation
 import * as yup from 'yup';
@@ -51,14 +54,31 @@ const SolutionForm = ({
   const [newCategory, setNewCategory] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
+  useEffect(() => {
+    if (solution) {
+      const blocksFromHtml = htmlToDraft(solution.description);
+      const { contentBlocks, entityMap } = blocksFromHtml;
+      const contentState = ContentState.createFromBlockArray(
+        contentBlocks,
+        entityMap
+      );
+      setEditorState(EditorState.createWithContent(contentState));
+    }
+  }, [solution]);
+
   const handleEditorState = newState => {
     setEditorState(newState);
+  };
+
+  const handleRadio = isNew => {
+    formik.values.category = '';
+    setNewCategory(isNew);
   };
 
   // Formik
   const formik = useFormik({
     initialValues: {
-      category: solution !== null ? solution.categoryId : '',
+      category: solution !== null ? solution.category._id : '',
       title: solution !== null ? solution.title : '',
     },
     validationSchema: validationSchema,
@@ -70,21 +90,25 @@ const SolutionForm = ({
         description: values.text,
         createdDate: Date.now(),
         createdBy: user._id,
-        categoryId: values.category,
       };
 
       if (newCategory) {
-        newSolution.categoryTitle = values.category;
+        newSolution.category = {
+          _id: uuid(),
+          title: values.category,
+        };
       } else {
-        newSolution.categoryId = values.category;
+        for (const category of categories) {
+          if (category._id === values.category) {
+            newSolution.category = category;
+          }
+        }
       }
+      dispatch(createSolution(newSolution));
+      handleSaveSolution();
+      handleFormClose();
     },
   });
-
-  const handleRadio = isNew => {
-    formik.values.category = '';
-    setNewCategory(isNew);
-  };
 
   return (
     <div className='solutionForm'>

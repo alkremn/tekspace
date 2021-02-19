@@ -42,6 +42,7 @@ function App({ history }) {
       });
       history.push('/overview');
     }
+    return () => socket.disconnect();
   }, [user, dispatch, history]);
 
   return (

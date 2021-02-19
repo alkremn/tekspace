@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Avatar } from '@material-ui/core';
 import { initials } from '../../../utils/converters';
+import Emoji from 'react-emoji-render';
 
 const ChatMessage = ({ message, userId }) => {
   return (
@@ -19,7 +20,7 @@ const ChatMessage = ({ message, userId }) => {
         </Avatar>
         <p className='chatMessage__message'>
           <span className='chatMessage__sender'>{message.sender.name}</span>
-          {message.message}
+          <Emoji text={message.message} />
         </p>
         <span className='chatMessage__timestamp'>
           {moment(Number(message.timestamp)).startOf('second').fromNow()}

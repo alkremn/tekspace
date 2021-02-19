@@ -25,7 +25,6 @@ const Navbar = ({ setTitle }) => {
   const logoutHandler = logout => {
     if (logout) {
       dispatch(logoutAction());
-      localStorage.removeItem('userInfo');
       setOpen(false);
     } else {
       setOpen(false);

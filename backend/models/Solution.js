@@ -18,8 +18,14 @@ const solutionSchema = new Schema(
       ref: 'user',
     },
     category: {
-      type: String,
-      required: true,
+      _id: {
+        type: String,
+        required: true,
+      },
+      title: {
+        type: String,
+        required: true,
+      },
     },
   },
   {
