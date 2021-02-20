@@ -132,7 +132,7 @@ const LoginPage = () => {
             </Button>
           )}
           buttonText='Log in with Google'
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          clientId='495665474154-8djmc77mse373v6huk96kfd7dsl0brvg.apps.googleusercontent.com'
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
         />

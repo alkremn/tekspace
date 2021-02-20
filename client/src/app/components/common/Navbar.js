@@ -109,7 +109,7 @@ const Navbar = ({ setTitle }) => {
         <Modal.Actions>
           <Button onClick={() => logoutHandler(false)}>No</Button>
           <GoogleLogout
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            clientId='495665474154-8djmc77mse373v6huk96kfd7dsl0brvg.apps.googleusercontent.com'
             buttonText='Logout'
             onLogoutSuccess={() => logoutHandler(true)}
             render={renderProps => (
