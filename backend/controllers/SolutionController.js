@@ -22,6 +22,27 @@ exports.createSolution = asyncHandler(async (req, res) => {
   }
 });
 
+exports.updateSolution = asyncHandler(async (req, res) => {
+  const solutionId = req.body._id;
+  try {
+    const udpatedSolution = await Solution.findByIdAndUpdate(
+      solutionId,
+      req.body,
+      {
+        new: true,
+      }
+    );
+    if (!udpatedSolution) {
+      res.status(500);
+      throw new Error('Internal Server error');
+    }
+    res.json(udpatedSolution);
+  } catch (error) {
+    res.status(500);
+    throw new Error(error);
+  }
+});
+
 exports.removeSolution = asyncHandler(async (req, res) => {
   const solutionId = req.params.id;
   let response = {};

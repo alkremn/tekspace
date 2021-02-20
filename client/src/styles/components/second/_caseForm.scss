@@ -1,0 +1,11 @@
+.caseForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.caseForm__buttons {
+  display: flex;
+  justify-content: flex-end;
+}

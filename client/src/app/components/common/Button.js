@@ -22,6 +22,7 @@ const Button = ({
       style={{
         width: `${width}px`,
         height: `${height ?? height}px`,
+        margin: '10px',
         backgroundColor: color,
       }}
     >

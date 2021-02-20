@@ -4,12 +4,12 @@ import {
   AUTH_FAIL,
   AUTH_LOGOUT,
 } from '../constants/authConstants';
-import { axiosInstance } from '../api/axios';
+import axios from 'axios';
 
 export const loginAction = credentials => async dispatch => {
   dispatch({ type: LOADING_START });
   try {
-    const response = await axiosInstance.post('api/auth/login', credentials);
+    const response = await axios.post('api/auth/login', credentials);
     dispatch({ type: AUTH_SUCCESS, payload: response.data });
     localStorage.setItem('userInfo', JSON.stringify(response.data));
     dispatch({ type: LOADING_FINISH });
@@ -33,7 +33,7 @@ export const loginWithGoogleAction = googleData => async dispatch => {
   };
   dispatch({ type: LOADING_START });
   try {
-    const response = await axiosInstance.post(
+    const response = await axios.post(
       'api/auth/google',
       {
         token: googleData.tokenId,

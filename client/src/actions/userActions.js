@@ -4,7 +4,7 @@ import {
   FETCH_USERS_FAIL,
 } from '../constants/userConstants';
 
-import { axiosInstance } from '../api/axios';
+import axios from 'axios';
 
 export const fetchUsers = () => async (dispatch, getState) => {
   const config = {
@@ -15,7 +15,7 @@ export const fetchUsers = () => async (dispatch, getState) => {
   };
   dispatch({ type: LOADING_START });
   try {
-    const { data } = await axiosInstance.get('/api/users', config);
+    const { data } = await axios.get('/api/users', config);
     dispatch({ type: FETCH_USERS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

@@ -22,7 +22,7 @@ const caseSchema = new Schema(
     updatedDate: {
       type: String,
       required: true,
-      default: Date.now(),
+      default: Date.now,
     },
     finishedDate: {
       type: String,

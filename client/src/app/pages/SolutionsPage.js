@@ -28,17 +28,19 @@ const SolutionPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const categories = [];
-    solutions.forEach(solution => categories.push(solution.category));
-    const filteredCategories = Array.from(
-      new Set(categories.map(c => c._id))
-    ).map(id => {
-      return {
-        _id: id,
-        title: categories.find(c => c._id === id).title,
-      };
-    });
-    setCategories(filteredCategories);
+    if (solutions) {
+      const categories = [];
+      solutions.forEach(solution => categories.push(solution.category));
+      const filteredCategories = Array.from(
+        new Set(categories.map(c => c._id))
+      ).map(id => {
+        return {
+          _id: id,
+          title: categories.find(c => c._id === id).title,
+        };
+      });
+      setCategories(filteredCategories);
+    }
   }, [solutions]);
 
   const handleSelectedCategory = categoryId => {

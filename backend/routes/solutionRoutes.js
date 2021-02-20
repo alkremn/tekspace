@@ -4,9 +4,14 @@ const {
   getSolutions,
   createSolution,
   removeSolution,
+  updateSolution,
 } = require('../controllers/SolutionController');
 
-router.route('/').get(protect, getSolutions).post(protect, createSolution);
+router
+  .route('/')
+  .get(protect, getSolutions)
+  .post(protect, createSolution)
+  .put(protect, updateSolution);
 router.delete('/:id', protect, removeSolution);
 
 module.exports = router;

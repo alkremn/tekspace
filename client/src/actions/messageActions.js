@@ -5,7 +5,7 @@ import {
   ADD_MESSAGE,
 } from '../constants/messageConstants';
 
-import { axiosInstance } from '../api/axios';
+import axios from 'axios';
 
 export const fetchMessages = () => async (dispatch, getState) => {
   const config = {
@@ -16,7 +16,7 @@ export const fetchMessages = () => async (dispatch, getState) => {
   };
   dispatch({ type: LOADING_START });
   try {
-    const { data } = await axiosInstance.get('/api/messages', config);
+    const { data } = await axios.get('/api/messages', config);
     dispatch({ type: FETCH_MESSAGES_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

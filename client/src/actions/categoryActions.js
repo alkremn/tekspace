@@ -1,4 +1,4 @@
-import { axiosInstance } from '../api/axios';
+import axios from 'axios';
 import { LOADING_FINISH, LOADING_START } from '../constants/asyncConstants';
 import {
   FETCH_CATEGORIES_FAIL,
@@ -14,7 +14,7 @@ export const fetchCategories = () => async (dispatch, getState) => {
   };
   dispatch({ type: LOADING_START });
   try {
-    const { data } = await axiosInstance.get('/api/categories', config);
+    const { data } = await axios.get('/api/categories', config);
     dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

@@ -21,6 +21,7 @@ const Case = ({
   createdDate,
   createdBy,
   assignedTo,
+  isDraggable,
   draggableProps,
   dragHandleProps,
   innerRef,

@@ -43,7 +43,10 @@ const LoginPage = () => {
 
   //Google login handler
   const responseGoogle = response => {
-    dispatch(loginWithGoogleAction(response));
+    console.log(response);
+    if (response.googleId) {
+      dispatch(loginWithGoogleAction(response));
+    }
   };
 
   useEffect(() => {
@@ -113,42 +116,27 @@ const LoginPage = () => {
         <div className='login__form-divider'>
           <span>or</span>
         </div>
-        <form
-          className='login__google-form'
-          action='http://localhost:5000/api/v1/auth/google'
-          method='GET'
-        >
-          <GoogleLogin
-            render={renderProps => (
-              <Button
-                onClick={renderProps.onClick}
-                className='login__google-button'
-                height='40'
-                width='320'
-                primary
-                disabled={renderProps.disabled}
-              >
-                <FcGoogle className='login__google-icon' />
-                Log In With Google
-              </Button>
-            )}
-            buttonText='Log in with Google'
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-          />
-        </form>
+
+        <GoogleLogin
+          render={renderProps => (
+            <Button
+              onClick={renderProps.onClick}
+              className='login__google-button'
+              height='40'
+              width='320'
+              primary
+              disabled={renderProps.disabled}
+            >
+              <FcGoogle className='login__google-icon' />
+              Log In With Google
+            </Button>
+          )}
+          buttonText='Log in with Google'
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+        />
       </motion.div>
-      {/* <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={() => setOpen(false)}
-      >
-        <MuiAlert elevation={6} variant='filled' severity='error'>
-          {error}
-        </MuiAlert>
-      </Snackbar> */}
     </div>
   );
 };

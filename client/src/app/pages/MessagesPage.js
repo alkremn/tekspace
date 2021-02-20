@@ -73,7 +73,7 @@ const MessagesPage = () => {
               placeholder='Type a message'
             />
           </div>
-          <Picker onEmojiClick={onEmojiClick} />
+          {/* <Picker onEmojiClick={onEmojiClick} /> */}
           <button className='chat__form-button' onClick={onEnterHandler}>
             <RiSendPlaneFill className='chat__form-icon' />
           </button>

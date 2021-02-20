@@ -8,7 +8,7 @@ import {
   REMOVE_SOLUTION_FAIL,
 } from '../constants/solutionConstants';
 
-import { axiosInstance } from '../api/axios';
+import axios from 'axios';
 
 export const fetchSolutions = () => async (dispatch, getState) => {
   const config = {
@@ -19,7 +19,7 @@ export const fetchSolutions = () => async (dispatch, getState) => {
   };
   dispatch({ type: LOADING_START });
   try {
-    const { data } = await axiosInstance.get('/api/solutions', config);
+    const { data } = await axios.get('/api/solutions', config);
     dispatch({ type: FETCH_SOLUTIONS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -43,7 +43,7 @@ export const createSolution = solution => async (dispatch, getState) => {
   dispatch({ type: LOADING_START });
 
   try {
-    const { data } = await axiosInstance.post(
+    const { data } = await axios.post(
       '/api/solutions',
       solution,
       config
@@ -65,7 +65,7 @@ export const removeSolution = solutionId => async (dispatch, getState) => {
 
   dispatch({ type: LOADING_START });
   try {
-    const { data } = await axiosInstance.delete(
+    const { data } = await axios.delete(
       `api/solutions/${solutionId}`,
       config
     );

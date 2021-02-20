@@ -14,8 +14,9 @@ import { BsChatDotsFill } from 'react-icons/bs';
 import { IoSettingsSharp } from 'react-icons/io5';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import AssessmentIcon from '@material-ui/icons/Assessment';
-import { Button, Modal } from 'semantic-ui-react';
+import { Modal } from 'semantic-ui-react';
 import { GoogleLogout } from 'react-google-login';
+import Button from './Button';
 
 const Navbar = ({ setTitle }) => {
   const { user } = useSelector(state => state.auth);
@@ -45,9 +46,9 @@ const Navbar = ({ setTitle }) => {
             Icon={RiDashboardLine}
           />
         </li>
-        <li>
+        {/* <li>
           <Link to='/team' title='Team' setTitle={setTitle} Icon={RiTeamFill} />
-        </li>
+        </li> */}
         {/* <li>
           <Link to='/tasks' title='Tasks'   setTitle={setTitle} Icon={AssignmentTurnedInIcon} />
         </li> */}
@@ -106,15 +107,13 @@ const Navbar = ({ setTitle }) => {
           <p>Are you sure you want to logout?</p>
         </Modal.Content>
         <Modal.Actions>
-          <Button color='red' onClick={() => logoutHandler(false)}>
-            No
-          </Button>
+          <Button onClick={() => logoutHandler(false)}>No</Button>
           <GoogleLogout
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText='Logout'
             onLogoutSuccess={() => logoutHandler(true)}
             render={renderProps => (
-              <Button color='green' onClick={renderProps.onClick}>
+              <Button primary onClick={renderProps.onClick}>
                 Yes
               </Button>
             )}
