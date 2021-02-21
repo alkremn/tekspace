@@ -24,6 +24,7 @@ exports.createSolution = asyncHandler(async (req, res) => {
 
 exports.updateSolution = asyncHandler(async (req, res) => {
   const solutionId = req.body._id;
+  console.log(req.body._id);
   try {
     const udpatedSolution = await Solution.findByIdAndUpdate(
       solutionId,

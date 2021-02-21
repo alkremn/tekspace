@@ -20,6 +20,7 @@ import SettingsPage from './app/pages/SettingsPage';
 import socket from './utils/socket';
 import { fetchMessages } from './actions/messageActions';
 import { withRouter } from 'react-router-dom';
+import { fetchSolutionsAction } from './actions/solutionActions';
 
 function App({ history }) {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ function App({ history }) {
   useEffect(() => {
     const fetchData = async () => {
       dispatch(fetchUsers());
+      dispatch(fetchSolutionsAction());
       dispatch(fetchMessages());
     };
     if (!user) {

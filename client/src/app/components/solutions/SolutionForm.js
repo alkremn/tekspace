@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 // redux
 import { useSelector, useDispatch } from 'react-redux';
-import { createSolution } from '../../../actions/solutionActions';
+import {
+  createSolutionAction,
+  updateSolutionAction,
+} from '../../../actions/solutionActions';
 // Editor imports
 import { EditorState, ContentState, convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -104,7 +107,12 @@ const SolutionForm = ({
           }
         }
       }
-      dispatch(createSolution(newSolution));
+      if (solution) {
+        newSolution._id = solution._id;
+        dispatch(updateSolutionAction(newSolution));
+      } else {
+        dispatch(createSolutionAction(newSolution));
+      }
       handleSaveSolution();
       handleFormClose();
     },

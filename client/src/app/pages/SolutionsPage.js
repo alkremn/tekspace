@@ -9,7 +9,7 @@ import SolutionForm from '../components/solutions/SolutionForm';
 import Loading from '../components/common/Loading';
 import TitleListItem from '../components/solutions/TitleListItem';
 // Actions
-import { fetchSolutions, removeSolution } from '../../actions/solutionActions';
+import { removeSolutionAction } from '../../actions/solutionActions';
 
 const SolutionPage = () => {
   const dispatch = useDispatch();
@@ -24,10 +24,6 @@ const SolutionPage = () => {
   const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchSolutions());
-  }, [dispatch]);
-
-  useEffect(() => {
     if (solutions) {
       const categories = [];
       solutions.forEach(solution => categories.push(solution.category));
@@ -40,6 +36,7 @@ const SolutionPage = () => {
         };
       });
       setCategories(filteredCategories);
+      setFilteredSolutions(solutions);
     }
   }, [solutions]);
 
@@ -80,7 +77,7 @@ const SolutionPage = () => {
   };
 
   const handleSaveSolution = () => {
-    setSelectedCategory(null);
+    handleSelectedCategory('');
   };
 
   const handleFormOpen = () => {
@@ -98,7 +95,7 @@ const SolutionPage = () => {
   };
 
   const handleDeleteSolution = solutionId => {
-    dispatch(removeSolution(solutionId));
+    dispatch(removeSolutionAction(solutionId));
     setSelectedCategory('');
     setSelectedSolution(null);
     setFilteredSolutions(
