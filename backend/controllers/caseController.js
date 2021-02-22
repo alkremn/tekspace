@@ -21,20 +21,29 @@ exports.createCase = asyncHandler(async (req, res) => {
     res.json(newCase);
   } catch (error) {
     res.status(500);
-    throw new Error('Unable to create case');
+    throw new Error('error');
   }
 });
 
 exports.updateCase = asyncHandler(async (req, res) => {
-  const caseId = req.body._id;
-  console.log(caseId);
+  const { caseId, status } = req.body;
   try {
-    const updatedCase = await Case.findByIdAndUpdate(caseId, req.body, {
-      new: true,
-    });
-    res.json(updatedCase);
+    await Case.findByIdAndUpdate(caseId, { status: status });
+    res.status(201);
   } catch (error) {
+    console.log(error);
     res.status(500);
     throw new Error('Unable to update case');
+  }
+});
+
+exports.removeCase = asyncHandler(async (req, res) => {
+  const caseId = req.params.id;
+  try {
+    const removedCase = await Case.findByIdAndDelete(caseId);
+    res.status(201).json(removedCase);
+  } catch (error) {
+    res.status(500);
+    throw new Error(error);
   }
 });

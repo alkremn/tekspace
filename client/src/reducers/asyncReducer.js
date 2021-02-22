@@ -4,8 +4,8 @@ const initialState = {
   loading: false,
 };
 
-const asyncReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
+const asyncReducer = (state = initialState, action) => {
+  switch (action.type) {
     case LOADING_START:
       return {
         ...state,

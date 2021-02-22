@@ -6,7 +6,7 @@ import {
 
 import axios from 'axios';
 
-export const fetchUsers = () => async (dispatch, getState) => {
+export const fetchUsersAction = () => async (dispatch, getState) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',

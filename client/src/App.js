@@ -4,7 +4,11 @@ import './styles/app.scss';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsers } from './actions/userActions';
+// Actions
+import { fetchUsersAction } from './actions/userActions';
+import { fetchMessagesAction } from './actions/messageActions';
+import { fetchSolutionsAction } from './actions/solutionActions';
+import { fetchCasesAction } from './actions/caseActions';
 // Components
 import Navbar from './app/components/common/Navbar';
 import Header from './app/components/common/Header';
@@ -18,9 +22,7 @@ import MessagesPage from './app/pages/MessagesPage';
 import SettingsPage from './app/pages/SettingsPage';
 // Socket.io
 import socket from './utils/socket';
-import { fetchMessages } from './actions/messageActions';
 import { withRouter } from 'react-router-dom';
-import { fetchSolutionsAction } from './actions/solutionActions';
 
 function App({ history }) {
   const dispatch = useDispatch();
@@ -29,9 +31,10 @@ function App({ history }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch(fetchUsers());
+      dispatch(fetchUsersAction());
       dispatch(fetchSolutionsAction());
-      dispatch(fetchMessages());
+      dispatch(fetchCasesAction());
+      dispatch(fetchMessagesAction());
     };
     if (!user) {
       history.push('/login');

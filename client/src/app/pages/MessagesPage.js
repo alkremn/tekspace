@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage, fetchMessages } from '../../actions/messageActions';
+import { addMessageAction, fetchMessagesAction } from '../../actions/messageActions';
 import ChatMessage from '../components/chat/ChatMessage';
 import ChatUser from '../components/chat/ChatUser';
 import Picker from 'emoji-picker-react';
@@ -24,11 +24,11 @@ const MessagesPage = () => {
   }, [messages]);
 
   useEffect(() => {
-    dispatch(fetchMessages());
+    dispatch(fetchMessagesAction());
     scrollToBottom();
     socket.on('newMessage', async newMessage => {
       console.log(newMessage);
-      dispatch(addMessage(newMessage));
+      dispatch(addMessageAction(newMessage));
     });
     return () => socket.off('newMessage');
   }, [dispatch]);

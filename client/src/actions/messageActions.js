@@ -7,7 +7,7 @@ import {
 
 import axios from 'axios';
 
-export const fetchMessages = () => async (dispatch, getState) => {
+export const fetchMessagesAction = () => async (dispatch, getState) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -30,6 +30,6 @@ export const fetchMessages = () => async (dispatch, getState) => {
   dispatch({ type: LOADING_FINISH });
 };
 
-export const addMessage = message => dispatch => {
+export const addMessageAction = message => dispatch => {
   dispatch({ type: ADD_MESSAGE, payload: message });
 };

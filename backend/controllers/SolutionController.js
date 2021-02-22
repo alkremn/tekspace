@@ -24,7 +24,6 @@ exports.createSolution = asyncHandler(async (req, res) => {
 
 exports.updateSolution = asyncHandler(async (req, res) => {
   const solutionId = req.body._id;
-  console.log(req.body._id);
   try {
     const udpatedSolution = await Solution.findByIdAndUpdate(
       solutionId,
@@ -46,17 +45,9 @@ exports.updateSolution = asyncHandler(async (req, res) => {
 
 exports.removeSolution = asyncHandler(async (req, res) => {
   const solutionId = req.params.id;
-  let response = {};
   try {
-    const { categoryId } = await Solution.findById(solutionId);
-    const otherSolutions = await Solution.find({ categoryId });
-    if (otherSolutions.length === 1) {
-      const category = await Category.findByIdAndDelete(categoryId);
-      response.categoryId = category._id;
-    }
     const solution = await Solution.findByIdAndDelete(solutionId);
-    response.solutionId = solution._id;
-    res.status(201).json(response);
+    res.status(201).json(solution);
   } catch (error) {
     res.status(500);
     throw new Error(error);

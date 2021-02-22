@@ -1,9 +1,13 @@
 import React from 'react';
 import { Form, TextArea, Input } from 'semantic-ui-react';
+// Redux
+import { useDispatch } from 'react-redux';
 // Validation
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from '../common/Button';
+// Actions
+import { createCaseAction } from '../../../actions/caseActions';
 
 const validationSchema = yup.object({
   title: yup.string().required('Title is required'),
@@ -12,6 +16,7 @@ const validationSchema = yup.object({
 });
 
 const CaseForm = ({ setFormActive }) => {
+  const dispatch = useDispatch();
   const initialValues = {
     title: '',
     caseNumber: '',
@@ -23,9 +28,15 @@ const CaseForm = ({ setFormActive }) => {
     initialValues,
     validationSchema: validationSchema,
     onSubmit: values => {
-      console.log(values);
+      dispatch(createCaseAction(values));
+      setFormActive(false);
     },
   });
+
+  const handleCancel = () => {
+    formik.setValues = { title: '', caseNumber: '', description: '' };
+    setFormActive(false);
+  };
 
   return (
     <div className='caseForm'>
@@ -53,7 +64,7 @@ const CaseForm = ({ setFormActive }) => {
           />
         </Form.Field>
         <Form.Field>
-          <label>Case Number</label>
+          <label>Description</label>
           <TextArea
             name='description'
             value={formik.values.description}
@@ -66,7 +77,7 @@ const CaseForm = ({ setFormActive }) => {
           <Button primary type='submit' width={90}>
             Save
           </Button>
-          <Button onClick={() => setFormActive(false)}>Cancel</Button>
+          <Button onClick={handleCancel}>Cancel</Button>
         </div>
       </Form>
     </div>

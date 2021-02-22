@@ -1,5 +1,6 @@
-import { Avatar } from '@material-ui/core';
+import { Avatar, IconButton } from '@material-ui/core';
 import React from 'react';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const shrinkDescription = (description, count) => {
   if (description.length > count) {
@@ -23,6 +24,7 @@ const Case = ({
   assignedTo,
   isDraggable,
   draggableProps,
+  handleRemoveCase,
   dragHandleProps,
   innerRef,
 }) => {
@@ -37,6 +39,9 @@ const Case = ({
       <span>{new Date(Number(createdDate)).toDateString()}</span>
       <p className='case__description'>{shrinkDescription(description, 100)}</p>
       <Avatar>AK</Avatar>
+      <IconButton onClick={() => handleRemoveCase(id)}>
+        <DeleteIcon />
+      </IconButton>
     </li>
   );
 };

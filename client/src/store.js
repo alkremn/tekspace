@@ -3,18 +3,18 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import asyncReducer from './reducers/asyncReducer';
 import authReducer from './reducers/authReducer';
-import categoriesReducer from './reducers/categoriesReducer';
 import solutionsReducer from './reducers/solutionsReducer';
 import usersReducer from './reducers/usersReducer';
 import messagesReducer from './reducers/messagesReducer';
+import casesReducer from './reducers/casesReducer';
 
 const rootReducer = combineReducers({
   async: asyncReducer,
   auth: authReducer,
-  categories: categoriesReducer,
   solutions: solutionsReducer,
   users: usersReducer,
   messages: messagesReducer,
+  cases: casesReducer,
 });
 
 const initialState = {
