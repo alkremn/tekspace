@@ -3,7 +3,10 @@ const Case = require('../models/Case');
 
 exports.getCases = asyncHandler(async (req, res) => {
   try {
-    const cases = await Case.find({});
+    const cases = await Case.find({}).populate(
+      'createdBy assignedTo',
+      'name photoUrl'
+    );
     res.json(cases);
   } catch (error) {
     res.status(500);
@@ -18,7 +21,11 @@ exports.createCase = asyncHandler(async (req, res) => {
       createdBy: req.user._id,
     });
     await newCase.save();
-    res.json(newCase);
+    const populatedCase = await Case.findById(newCase._id).populate(
+      'createdBy',
+      'name photoUrl'
+    );
+    res.json(populatedCase);
   } catch (error) {
     res.status(500);
     throw new Error('error');
@@ -26,14 +33,17 @@ exports.createCase = asyncHandler(async (req, res) => {
 });
 
 exports.updateCase = asyncHandler(async (req, res) => {
-  const { caseId, status } = req.body;
+  const { caseId, status, assignedTo } = req.body;
   try {
-    await Case.findByIdAndUpdate(caseId, { status: status });
-    res.status(201);
+    await Case.findByIdAndUpdate(caseId, {
+      status: status,
+      assignedTo: assignedTo,
+    });
+    res.status(201).json({ message: 'Success' });
   } catch (error) {
     console.log(error);
     res.status(500);
-    throw new Error('Unable to update case');
+    throw new Error(error);
   }
 });
 

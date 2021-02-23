@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 // Actions
-import { removeCaseAction, updateCaseAction } from '../../actions/caseActions';
+import {
+  removeCaseAction,
+  updateCaseAction,
+  fetchCasesAction,
+} from '../../actions/caseActions';
 // Components
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Button from '../components/common/Button';
@@ -34,12 +38,15 @@ const SecondPage = () => {
   const { cases } = useSelector(state => state.cases);
 
   const [formActive, setFormActive] = useState(false);
-  const [disabled, setDisabled] = useState(!user.isSecond);
   const [filteredCases, setFilteredCases] = useState({
     new: [],
     inProgress: [],
     completed: [],
   });
+
+  useEffect(() => {
+    dispatch(fetchCasesAction());
+  }, [dispatch]);
 
   useEffect(() => {
     if (cases) {
@@ -64,8 +71,15 @@ const SecondPage = () => {
       updateCaseAction({
         caseId: result.draggableId,
         status: result.destination.droppableId,
+        assignedTo: result.destination.droppableId === 'new' ? null : user._id,
       })
     );
+    let updatedCase = filteredCases[source.droppableId].find(
+      c => c._id === result.draggableId
+    );
+    updatedCase.assignedTo =
+      result.destination.droppableId === 'new' ? null : user;
+
     const sourceList = filteredCases[source.droppableId];
     const destinationList = filteredCases[destination.droppableId];
     result = move(sourceList, destinationList, source, destination);
@@ -109,7 +123,10 @@ const SecondPage = () => {
                 }`}
               >
                 <div className='secondPage__column'>
-                  <h1 className='second__header-title new'>New</h1>
+                  <h1 className='second__header-title'>
+                    New
+                    <span>{`( ${filteredCases.new.length} )`}</span>
+                  </h1>
 
                   <Droppable droppableId='new'>
                     {provided => (
@@ -127,16 +144,9 @@ const SecondPage = () => {
                           >
                             {provided => (
                               <Case
-                                draggableProps={provided.draggableProps}
-                                dragHandleProps={provided.dragHandleProps}
+                                item={item}
                                 innerRef={provided.innerRef}
-                                id={item._id}
-                                title={item.title}
-                                caseNumber={item.caseNumber}
-                                description={item.description}
-                                createdDate={item.createdDate}
-                                createdBy={item.title}
-                                assignedTo={item.title}
+                                provided={provided}
                                 handleRemoveCase={handleRemoveCase}
                               />
                             )}
@@ -148,8 +158,9 @@ const SecondPage = () => {
                   </Droppable>
                 </div>
                 <div className='secondPage__column'>
-                  <h1 className='second__header-title inProgress'>
+                  <h1 className='second__header-title'>
                     In Progress
+                    <span>{`( ${filteredCases.inProgress.length} )`}</span>
                   </h1>
                   <Droppable droppableId='inProgress'>
                     {provided => (
@@ -167,17 +178,10 @@ const SecondPage = () => {
                           >
                             {provided => (
                               <Case
-                                className='case draggable'
-                                draggableProps={provided.draggableProps}
-                                dragHandleProps={provided.dragHandleProps}
+                                item={item}
                                 innerRef={provided.innerRef}
-                                id={item._id}
-                                title={item.title}
-                                caseNumber={item.caseNumber}
-                                description={item.description}
-                                createdDate={item.createdDate}
-                                createdBy={item.title}
-                                assignedTo={item.title}
+                                provided={provided}
+                                handleRemoveCase={handleRemoveCase}
                               />
                             )}
                           </Draggable>
@@ -189,7 +193,10 @@ const SecondPage = () => {
                 </div>
 
                 <div className='secondPage__column'>
-                  <h1 className='second__header-title complete'>Completed</h1>
+                  <h1 className='second__header-title'>
+                    Completed
+                    <span>{`( ${filteredCases.completed.length} )`}</span>
+                  </h1>
                   <Droppable droppableId='completed'>
                     {provided => (
                       <ul
@@ -206,17 +213,10 @@ const SecondPage = () => {
                           >
                             {provided => (
                               <Case
-                                className='case draggable'
-                                draggableProps={provided.draggableProps}
-                                dragHandleProps={provided.dragHandleProps}
+                                item={item}
                                 innerRef={provided.innerRef}
-                                id={item._id}
-                                title={item.title}
-                                caseNumber={item.caseNumber}
-                                description={item.description}
-                                createdDate={item.createdDate}
-                                createdBy={item.title}
-                                assignedTo={item.title}
+                                provided={provided}
+                                handleRemoveCase={handleRemoveCase}
                               />
                             )}
                           </Draggable>

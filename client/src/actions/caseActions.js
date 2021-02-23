@@ -7,6 +7,8 @@ import {
   FETCH_CASES_SUCCESS,
   REMOVE_CASE_FAIL,
   REMOVE_CASE_SUCCESS,
+  UPDATE_CASE_SUCCESS,
+  UPDATE_CASE_FAIL,
 } from '../constants/caseConstants';
 
 export const fetchCasesAction = () => async (dispatch, getState) => {
@@ -20,6 +22,7 @@ export const fetchCasesAction = () => async (dispatch, getState) => {
     dispatch({ type: LOADING_START });
     const { data } = await axios.get('/api/cases', config);
     dispatch({ type: FETCH_CASES_SUCCESS, payload: data });
+    dispatch({ type: LOADING_FINISH });
   } catch (error) {
     dispatch({
       type: FETCH_CASES_FAIL,
@@ -42,6 +45,7 @@ export const createCaseAction = newCase => async (dispatch, getState) => {
   try {
     dispatch({ type: LOADING_START });
     const { data } = await axios.post('/api/cases', newCase, config);
+    console.log(data);
     dispatch({ type: CREATE_CASE_SUCCESS, payload: data });
     dispatch({ type: LOADING_FINISH });
   } catch (error) {
@@ -57,7 +61,6 @@ export const createCaseAction = newCase => async (dispatch, getState) => {
 };
 
 export const updateCaseAction = updateStatus => async (dispatch, getState) => {
-  console.log(updateStatus);
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -65,15 +68,19 @@ export const updateCaseAction = updateStatus => async (dispatch, getState) => {
     },
   };
   try {
-    await axios.put(`/api/cases`, updateStatus, config);
+    const { data } = await axios.put(`/api/cases`, updateStatus, config);
+    dispatch({
+      type: UPDATE_CASE_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
-    // dispatch({
-    //   type: UP,
-    //   payload:
-    //     error.response && error.response.data.message
-    //       ? error.response.data.message
-    //       : error.message,
-    // });
+    dispatch({
+      type: UPDATE_CASE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
 };
 

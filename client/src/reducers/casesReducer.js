@@ -5,6 +5,8 @@ import {
   CREATE_CASE_FAIL,
   REMOVE_CASE_SUCCESS,
   REMOVE_CASE_FAIL,
+  UPDATE_CASE_SUCCESS,
+  UPDATE_CASE_FAIL,
 } from '../constants/caseConstants';
 const initialState = {
   cases: [],
@@ -35,6 +37,17 @@ const casesReducer = (state = initialState, action) => {
       };
     case REMOVE_CASE_FAIL:
       return {
+        ...state,
+        error: action.payload,
+      };
+    case UPDATE_CASE_SUCCESS:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case UPDATE_CASE_FAIL:
+      return {
+        ...state,
         error: action.payload,
       };
     default:

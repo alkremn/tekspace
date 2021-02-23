@@ -1,6 +1,7 @@
 export const excalations = [
   {
-    id: '1',
+    
+    _id: '1',
     title: 'Issue title 1',
     description: `dolor sit amet, 
     consetetur sadipscing elitr,
@@ -10,7 +11,7 @@ export const excalations = [
     status: '0',
   },
   {
-    id: '2',
+    _id: '2',
     title: 'Issue title 2',
     description: `dolor sit amet, 
     consetetur sadipscing elitr,
@@ -20,7 +21,7 @@ export const excalations = [
     status: '1',
   },
   {
-    id: '3',
+    _id: '3',
     title: 'Issue title 3',
     description: `dolor sit amet, 
     consetetur sadipscing elitr,
@@ -30,7 +31,7 @@ export const excalations = [
     status: '3',
   },
   {
-    id: '4',
+    _id: '4',
     title: 'Issue title 4',
     description: `dolor sit amet, 
     consetetur sadipscing elitr,
