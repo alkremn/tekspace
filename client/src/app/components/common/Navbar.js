@@ -6,14 +6,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logoutAction } from '../../../actions/authActions';
 //icons
 import { RiDashboardLine } from 'react-icons/ri';
-import PublishIcon from '@material-ui/icons/Publish';
+import { MdAssignmentTurnedIn } from 'react-icons/md';
+import { MdPublish } from 'react-icons/md';
 import { IoExitOutline } from 'react-icons/io5';
 import { RiTeamFill } from 'react-icons/ri';
 import { ImBooks } from 'react-icons/im';
 import { BsChatDotsFill } from 'react-icons/bs';
 import { IoSettingsSharp } from 'react-icons/io5';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-import AssessmentIcon from '@material-ui/icons/Assessment';
+import { MdAssignment } from 'react-icons/md';
+// Components
 import { Modal } from 'semantic-ui-react';
 import { GoogleLogout } from 'react-google-login';
 import Button from './Button';
@@ -48,9 +49,14 @@ const Navbar = ({ setTitle }) => {
         </li>
         {/* <li>
           <Link to='/team' title='Team' setTitle={setTitle} Icon={RiTeamFill} />
-        </li> */}
-        {/* <li>
-          <Link to='/tasks' title='Tasks'   setTitle={setTitle} Icon={AssignmentTurnedInIcon} />
+        </li>
+        <li>
+          <Link
+            to='/tasks'
+            title='Tasks'
+            setTitle={setTitle}
+            Icon={MdAssignmentTurnedIn}
+          />
         </li> */}
         <li>
           <Link
@@ -65,7 +71,7 @@ const Navbar = ({ setTitle }) => {
             to='/second'
             title='Escalations'
             setTitle={setTitle}
-            Icon={PublishIcon}
+            Icon={MdPublish}
           />
         </li>
         <li>
@@ -82,7 +88,7 @@ const Navbar = ({ setTitle }) => {
               to='/reports'
               title='Reports'
               setTitle={setTitle}
-              Icon={AssessmentIcon}
+              Icon={MdAssignment}
             />
           </li>
         )}

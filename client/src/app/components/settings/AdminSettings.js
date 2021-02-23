@@ -1,14 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Table, Checkbox, Accordion, Form } from 'semantic-ui-react';
-import { Avatar, Divider, TextField } from '@material-ui/core';
+import { Table, Accordion, Form } from 'semantic-ui-react';
+import { Avatar, Checkbox, Divider, TextField } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { initials } from '../../../utils/converters';
 import Button from '../common/Button';
-
-
 
 const AdminSettings = () => {
   const { users } = useSelector(state => state.users);
@@ -79,7 +77,7 @@ const AdminSettings = () => {
               </Table.Cell>
               <Table.Cell>{user.email}</Table.Cell>
               <Table.Cell>
-                <Checkbox checked={user.isSecond} />
+                <Checkbox checked={user.isSecond} color='primary' />
               </Table.Cell>
               <Table.Cell>
                 <Checkbox checked={user.isAdmin} />
