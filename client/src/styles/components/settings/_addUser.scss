@@ -1,0 +1,33 @@
+.addUser {
+  padding: 20px;
+  h2 {
+    font-size: 18px;
+  }
+}
+
+.addUser__general {
+  display: flex;
+  justify-content: space-between;
+}
+.addUser__name {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+}
+.addUser__optional {
+  width: 40%;
+}
+
+.caseForm__bottom {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.caseForm__addButton {
+  margin-top: 15px;
+}
+
+.content .active {
+  background-color: transparent;
+}

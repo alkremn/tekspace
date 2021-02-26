@@ -7,6 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { initials } from '../../../utils/converters';
 import Button from '../common/Button';
+import AddUser from './AddUser';
 
 const AdminSettings = () => {
   const { users } = useSelector(state => state.users);
@@ -18,42 +19,7 @@ const AdminSettings = () => {
     <div className='adminSettings'>
       <h1>Admin Settings</h1>
       <Divider />
-      <h2>Add User</h2>
-      <div className='addUser__container'>
-        <div className='addUser__name'>
-          <TextField
-            id='firstName'
-            name='firstName'
-            label='First Name'
-            variant='outlined'
-            size='small'
-          />
-          <TextField
-            id='lastName'
-            name='lastName'
-            label='Last Name'
-            variant='outlined'
-            size='small'
-          />
-        </div>
-        <div className='addUser__email'>
-          <TextField
-            id='email'
-            name='email'
-            label='Email'
-            variant='outlined'
-            size='small'
-          />
-        </div>
-        <TextField
-          id='gmail'
-          name='gmail'
-          label='Gmail (optional)'
-          variant='outlined'
-          size='small'
-        />
-        <Button primary>Add User</Button>
-      </div>
+      <AddUser />
       <Divider />
       <h2>Team members</h2>
       <Table celled>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 // Icons
@@ -23,10 +24,10 @@ const validationSchema = yup.object({
   password: yup.string().required('Password is required'),
 });
 
-const LoginPage = () => {
+const LoginPage = ({ history }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const { error } = useSelector(state => state.auth);
+  const { error, user } = useSelector(state => state.auth);
   const { loading } = useSelector(state => state.async);
 
   // Formik
@@ -50,10 +51,13 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
+    if (user) {
+      history.pushState('/overview');
+    }
     if (error) {
       setOpen(true);
     }
-  }, [error]);
+  }, [error, history, user]);
 
   return (
     <div className='login'>
@@ -141,4 +145,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default withRouter(LoginPage);

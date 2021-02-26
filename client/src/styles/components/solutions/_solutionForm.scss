@@ -33,6 +33,7 @@
 .form__categoryList {
   margin-top: 10px;
   width: 50%;
+  min-width: 330px;
   list-style: none;
 }
 .form__categoryList > li {
@@ -70,6 +71,7 @@
 
 .form__title {
   width: 50%;
+  min-width: 330px !important;
 }
 
 .editor__wrapper {

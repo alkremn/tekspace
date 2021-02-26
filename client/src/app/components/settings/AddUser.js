@@ -1,46 +1,57 @@
-import React from 'react';
-import { TextField } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Form, Input, Accordion, Icon } from 'semantic-ui-react';
+import Button from '../common/Button';
 
 const AddUser = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className='addUser'>
-      <div className='addUser__content'>
-        <h1>Add User</h1>
-        <div className='profile_name'>
-          <>
-            <TextField
-              id='firstName'
-              name='firstName'
-              label='First Name'
-              variant='outlined'
-              size='small'
-            />
-            <TextField
-              id='lastName'
-              name='lastName'
-              label='Last Name'
-              variant='outlined'
-              size='small'
-            />
-          </>
+      <Form className='addUser__form'>
+        <div className='addUser__general'>
+          <div className='addUser__name'>
+            <Form.Field>
+              <label>First Name</label>
+              <Input name='title' type='text' />
+            </Form.Field>
+            <Form.Field>
+              <label>Last Name</label>
+              <Input name='title' placeholder='Title' />
+            </Form.Field>
+          </div>
+          <Form.Field style={{ width: '40%' }}>
+            <label>Email</label>
+            <Input type='email' name='email' placeholder='Email' />
+          </Form.Field>
+          <div className='caseForm__addButton'>
+            <Button
+              className='caseFrom__addButton'
+              primary
+              type='submit'
+              width={100}
+            >
+              Add User
+            </Button>
+          </div>
         </div>
-        <TextField
-          id='email'
-          name='email'
-          label='Email'
-          variant='outlined'
-          type='email'
-          size='small'
-        />
-        <TextField
-          id='gmail'
-          name='gmail'
-          label='Google email (optional)'
-          variant='outlined'
-          type='email'
-          size='small'
-        />
-      </div>
+        <div className='addUser__optional'>
+          <Accordion>
+            <Accordion.Title active={open} onClick={handleClick}>
+              <Icon name='dropdown' />
+              Gmail Account (optional)
+            </Accordion.Title>
+            <Accordion.Content active={open}>
+              <Form.Field>
+                <Input type='email' name='email' placeholder='Email' />
+              </Form.Field>
+            </Accordion.Content>
+          </Accordion>
+        </div>
+      </Form>
     </div>
   );
 };
