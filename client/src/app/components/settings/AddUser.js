@@ -12,20 +12,38 @@ const AddUser = () => {
   return (
     <div className='addUser'>
       <Form className='addUser__form'>
-        <div className='addUser__general'>
+        <div className='addUser__left'>
           <div className='addUser__name'>
             <Form.Field>
               <label>First Name</label>
-              <Input name='title' type='text' />
+              <Input name='firstName' type='text' size='small' />
             </Form.Field>
             <Form.Field>
               <label>Last Name</label>
-              <Input name='title' placeholder='Title' />
+              <Input name='lastName' size='small' />
             </Form.Field>
           </div>
-          <Form.Field style={{ width: '40%' }}>
+          <Accordion>
+            <Accordion.Title active={open} onClick={handleClick}>
+              <Icon name='dropdown' />
+              Gmail Account (optional)
+            </Accordion.Title>
+            <Accordion.Content active={open}>
+              <Form.Field>
+                <Input
+                  type='email'
+                  name='gemail'
+                  placeholder='Gmail'
+                  size='small'
+                />
+              </Form.Field>
+            </Accordion.Content>
+          </Accordion>
+        </div>
+        <div className='addUser__right'>
+          <Form.Field style={{ width: '60%' }}>
             <label>Email</label>
-            <Input type='email' name='email' placeholder='Email' />
+            <Input type='email' name='email' size='small' />
           </Form.Field>
           <div className='caseForm__addButton'>
             <Button
@@ -37,19 +55,6 @@ const AddUser = () => {
               Add User
             </Button>
           </div>
-        </div>
-        <div className='addUser__optional'>
-          <Accordion>
-            <Accordion.Title active={open} onClick={handleClick}>
-              <Icon name='dropdown' />
-              Gmail Account (optional)
-            </Accordion.Title>
-            <Accordion.Content active={open}>
-              <Form.Field>
-                <Input type='email' name='email' placeholder='Email' />
-              </Form.Field>
-            </Accordion.Content>
-          </Accordion>
         </div>
       </Form>
     </div>

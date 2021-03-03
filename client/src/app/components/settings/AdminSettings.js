@@ -1,12 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Table, Accordion, Form } from 'semantic-ui-react';
-import { Avatar, Checkbox, Divider, TextField } from '@material-ui/core';
+import { Table } from 'semantic-ui-react';
+import { Avatar, Checkbox, Divider } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { initials } from '../../../utils/converters';
-import Button from '../common/Button';
 import AddUser from './AddUser';
 
 const AdminSettings = () => {

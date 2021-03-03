@@ -1,19 +1,34 @@
 .addUser {
-  padding: 20px;
+  padding: 20px 0;
   h2 {
     font-size: 18px;
   }
+}
+
+.addUser__form {
+  display: flex;
+}
+
+.addUser__left {
+  width: 45%;
+}
+
+.addUser__right {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
 }
 
 .addUser__general {
   display: flex;
   justify-content: space-between;
 }
+
 .addUser__name {
-  width: 40%;
   display: flex;
   justify-content: space-between;
 }
+
 .addUser__optional {
   width: 40%;
 }
@@ -25,7 +40,7 @@
 }
 
 .caseForm__addButton {
-  margin-top: 15px;
+  margin-top: 13px;
 }
 
 .content .active {

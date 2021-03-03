@@ -14,8 +14,8 @@ import AvatarCropper from '../components/settings/AvatarCropper';
 const SettingsPage = () => {
   const { user } = useSelector(state => state.auth);
   const [menuOption, setMenuOption] = useState({
-    profile: false,
-    admin: true,
+    profile: true,
+    admin: false,
   });
   return (
     <div className='settings'>

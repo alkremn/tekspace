@@ -45,7 +45,7 @@ function App({ history }) {
       socket.on('users', users => {
         console.log(users);
       });
-      history.push('overview');
+      //history.push('overview');
     }
     return () => socket.disconnect();
   }, [user, dispatch, history]);

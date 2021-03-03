@@ -30,6 +30,7 @@
   position: absolute;
   padding: 6px;
   border-radius: 50%;
+  border: none;
   bottom: -5px;
   right: 10px;
   display: flex;
@@ -38,6 +39,9 @@
   cursor: pointer;
   &:hover {
     transform: scale(1.2);
+  }
+  &:focus {
+    outline: none;
   }
 }
 
