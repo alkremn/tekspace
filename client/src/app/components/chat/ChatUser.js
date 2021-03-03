@@ -5,10 +5,10 @@ import { initials } from '../../../utils/converters';
 const ChatUser = ({ image, label, name, online }) => {
   return (
     <li className='chatUser'>
-      <Avatar src={image} label={label} size={40}>
+      <Avatar className='chatUser__avatar' src={image} label={label} size={40}>
         {initials(name)}
       </Avatar>
-      {online && <span className='chartUser__online'>Online</span>}
+      {online && <span className='chartUser__online'></span>}
       <p className='chatUser__name'>{name}</p>
     </li>
   );

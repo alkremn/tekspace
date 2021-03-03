@@ -27,14 +27,11 @@ exports.socket = server => {
   // Socket.io server setup
   io.on('connection', socket => {
     console.log(`${socket.userId} is connected`);
-    const currentUserId = socket.userId;
-    const users = [];
+    let connectedUsers = [];
     for (let [id, socket] of io.of('/').sockets) {
-      users.push({
-        userId: socket.userId,
-      });
+      connectedUsers.push(socket.userId);
     }
-    io.sockets.emit('users', users);
+    io.sockets.emit('users', connectedUsers);
 
     socket.on('message', async message => {
       try {
@@ -49,12 +46,14 @@ exports.socket = server => {
     });
     socket.on('disconnect', () => {
       console.log(`${socket.userId} is disconnected`);
+
       for (let [id, socket] of io.of('/').sockets) {
-        users.push({
-          userId: socket.userId,
-        });
+        console.log(socket.userId);
+        connectedUsers = [
+          ...connectedUsers.filter(userId => userId === socket.userId),
+        ];
       }
-      io.sockets.emit('users', users);
+      io.sockets.emit('users', connectedUsers);
     });
   });
 };

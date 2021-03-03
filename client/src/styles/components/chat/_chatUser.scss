@@ -1,13 +1,19 @@
 .chatUser {
+  position: relative;
   padding: 10px;
   display: flex;
   align-items: center;
 }
 
 .chartUser__online {
-  font-size: x-small;
-  border-radius: 10px;
-  padding: 5px;
+  position: absolute;
+  left: 38px;
+  bottom: 10px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #31a24c;
+  border: 2px solid #fff;
 }
 
 .chatUser__name {

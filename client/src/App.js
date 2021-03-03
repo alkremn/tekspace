@@ -9,6 +9,7 @@ import { fetchUsersAction } from './actions/userActions';
 import { fetchMessagesAction } from './actions/messageActions';
 import { fetchSolutionsAction } from './actions/solutionActions';
 import { fetchCasesAction } from './actions/caseActions';
+import { addConnectedUsersAction } from './actions/userActions';
 // Components
 import Navbar from './app/components/common/Navbar';
 import Header from './app/components/common/Header';
@@ -43,7 +44,7 @@ function App({ history }) {
       socket.connect();
       fetchData();
       socket.on('users', users => {
-        console.log(users);
+        dispatch(addConnectedUsersAction(users));
       });
       //history.push('overview');
     }

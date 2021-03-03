@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessageAction, fetchMessagesAction } from '../../actions/messageActions';
+import {
+  addMessageAction,
+  fetchMessagesAction,
+} from '../../actions/messageActions';
 import ChatMessage from '../components/chat/ChatMessage';
 import ChatUser from '../components/chat/ChatUser';
 import Picker from 'emoji-picker-react';
@@ -10,7 +13,7 @@ import socket from '../../utils/socket';
 const MessagesPage = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
-  const { users } = useSelector(state => state.users);
+  const { users, activeUsers } = useSelector(state => state.users);
   const { messages } = useSelector(state => state.messages);
   const [message, setMessage] = useState('');
   const messagesEndRef = useRef(null);
@@ -86,7 +89,7 @@ const MessagesPage = () => {
             users.map(user => (
               <ChatUser
                 key={user._id}
-                online
+                online={activeUsers.indexOf(user._id) < 0 ? false : true}
                 image={user.photoUrl}
                 label={user.initials}
                 name={user.name}

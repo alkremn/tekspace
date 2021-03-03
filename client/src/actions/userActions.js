@@ -2,6 +2,7 @@ import { LOADING_START, LOADING_FINISH } from '../constants/asyncConstants';
 import {
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAIL,
+  ADD_ACTIVE_USERS,
 } from '../constants/userConstants';
 
 import axios from 'axios';
@@ -27,4 +28,11 @@ export const fetchUsersAction = () => async (dispatch, getState) => {
     });
   }
   dispatch({ type: LOADING_FINISH });
+};
+
+export const addConnectedUsersAction = users => dispatch => {
+  dispatch({
+    type: ADD_ACTIVE_USERS,
+    payload: users,
+  });
 };
