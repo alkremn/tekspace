@@ -47,7 +47,7 @@ exports.removeSolution = asyncHandler(async (req, res) => {
   const solutionId = req.params.id;
   try {
     const solution = await Solution.findByIdAndDelete(solutionId);
-    res.status(201).json(solution);
+    res.status(201).json(solution._id);
   } catch (error) {
     res.status(500);
     throw new Error(error);

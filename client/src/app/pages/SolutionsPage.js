@@ -98,9 +98,6 @@ const SolutionPage = () => {
     dispatch(removeSolutionAction(solutionId));
     setSelectedCategory('');
     setSelectedSolution(null);
-    setFilteredSolutions(
-      solutions.filter(solution => solution._id !== solutionId)
-    );
   };
 
   const handleFormClose = () => {

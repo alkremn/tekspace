@@ -46,7 +46,7 @@ const solutionsReducer = (state = initialState, action) => {
     case REMOVE_SOLUTION_SUCCESS:
       return {
         solutions: [
-          ...state.solutions.filter(s => s._id !== action.payload.solutionId),
+          ...state.solutions.filter(s => s._id !== action.payload),
         ],
       };
     case REMOVE_SOLUTION_FAIL:
