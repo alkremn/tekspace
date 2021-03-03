@@ -9,18 +9,6 @@ import { initials } from '../../../utils/converters';
 import { Modal } from 'semantic-ui-react';
 import Button from '../common/Button';
 
-const shrinkDescription = (description, count) => {
-  if (description.length > count) {
-    const words = description.split(' ');
-    let total = 0;
-    for (let word in words) {
-    }
-    // console.log(words);
-    return `${description.slice(0, count)}...`;
-  }
-  return description;
-};
-
 const Case = ({ item, innerRef, provided, handleRemoveCase }) => {
   const { user } = useSelector(state => state.auth);
   const [open, setOpen] = useState(false);

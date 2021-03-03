@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar, TextField } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { Modal } from 'semantic-ui-react';
 import Alert from '@material-ui/lab/Alert';

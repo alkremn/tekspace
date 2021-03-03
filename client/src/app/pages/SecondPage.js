@@ -11,7 +11,6 @@ import {
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Button from '../components/common/Button';
 import Case from '../components/second/Case';
-import TitleListItem from '../components/solutions/TitleListItem';
 import CaseForm from '../components/second/CaseForm';
 import Loading from '../components/common/Loading';
 

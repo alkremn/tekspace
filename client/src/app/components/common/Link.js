@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { StepTitle } from 'semantic-ui-react';
 
 const Link = ({ Icon, title, to, setTitle }) => {
   return (

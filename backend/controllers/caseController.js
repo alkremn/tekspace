@@ -18,7 +18,6 @@ exports.createCase = asyncHandler(async (req, res) => {
   try {
     const newCase = new Case({
       ...req.body,
-      createdBy: req.user._id,
     });
     await newCase.save();
     const populatedCase = await Case.findById(newCase._id).populate(

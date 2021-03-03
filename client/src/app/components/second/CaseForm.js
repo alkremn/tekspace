@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, TextArea, Input, Select } from 'semantic-ui-react';
+import { Form, TextArea, Input, Dropdown } from 'semantic-ui-react';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 // Validation
@@ -12,19 +12,18 @@ import { createCaseAction } from '../../../actions/caseActions';
 const validationSchema = yup.object({
   title: yup.string().required('Title is required'),
   caseNumber: yup.number().required('Case number is required'),
-  description: yup.string().required('Description is required'),
+  createdBy: yup.string().required('Description is required'),
 });
 
 const CaseForm = ({ setFormActive }) => {
   const { users } = useSelector(state => state.users);
   const [userOptions, setUserOptions] = useState([]);
-  const [agent, setAgent] = useState(null);
   const dispatch = useDispatch();
   const initialValues = {
     title: '',
     caseNumber: '',
     description: '',
-    agent: agent,
+    createdBy: '',
   };
 
   useEffect(() => {
@@ -44,7 +43,12 @@ const CaseForm = ({ setFormActive }) => {
   });
 
   const handleCancel = () => {
-    formik.setValues = { title: '', caseNumber: '', description: '' };
+    formik.setValues({
+      title: '',
+      caseNumber: '',
+      description: '',
+      createdBy: '',
+    });
     setFormActive(false);
   };
 
@@ -58,7 +62,8 @@ const CaseForm = ({ setFormActive }) => {
             name='title'
             placeholder='Title'
             value={formik.values.title}
-            onChange={formik.handleChange}
+            onChange={(e, data) => formik.setFieldValue(data.name, data.value)}
+            error
           />
         </Form.Field>
         <Form.Field
@@ -70,7 +75,10 @@ const CaseForm = ({ setFormActive }) => {
             name='caseNumber'
             placeholder='Case Number'
             value={formik.values.caseNumber}
-            onChange={formik.handleChange}
+            onChange={(e, data) => formik.setFieldValue(data.name, data.value)}
+            error={
+              formik.touched.caseNumber && Boolean(formik.errors.caseNumber)
+            }
           />
         </Form.Field>
         <Form.Field>
@@ -78,26 +86,30 @@ const CaseForm = ({ setFormActive }) => {
           <TextArea
             name='description'
             value={formik.values.description}
-            onChange={formik.handleChange}
+            onChange={(e, data) => formik.setFieldValue(data.name, data.value)}
             placeholder='Tell us more'
             rows={6}
           />
         </Form.Field>
         <Form.Field>
-          <label>Escalated By</label>
-          <Select
-            name='description'
-            value={agent}
-            onChange={e => setAgent(e.current.target)}
+          <label>Created By</label>
+          <Dropdown
+            selection
+            name='createdBy'
+            value={formik.values.createdBy}
+            onChange={(e, data) => formik.setFieldValue(data.name, data.value)}
             placeholder='Select User'
             options={userOptions}
+            error={formik.touched.createdBy && Boolean(formik.errors.createdBy)}
           />
         </Form.Field>
         <div className='caseForm__buttons'>
           <Button primary type='submit' width={90}>
             Save
           </Button>
-          <Button onClick={handleCancel}>Cancel</Button>
+          <Button type='button' onClick={handleCancel}>
+            Cancel
+          </Button>
         </div>
       </Form>
     </div>
