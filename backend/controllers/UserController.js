@@ -48,3 +48,16 @@ exports.createUser = asyncHandler(async (req, res) => {
     }
   });
 });
+
+exports.updateUser = asyncHandler(async (req, res) => {
+  const { userId } = req.body;
+  delete req.body.userId;
+  try {
+    await User.findByIdAndUpdate(userId, req.body);
+    res.status(201).json({ message: 'Success' });
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    throw new Error(error);
+  }
+});
