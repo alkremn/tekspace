@@ -14,13 +14,13 @@ import AvatarCropper from '../components/settings/AvatarCropper';
 const SettingsPage = () => {
   const { user } = useSelector(state => state.auth);
   const [menuOption, setMenuOption] = useState({
-    profile: true,
+    // profile: true,
     admin: false,
   });
   return (
     <div className='settings'>
       <ul className='settings__menu'>
-        <li>
+        {/* <li>
           <MenuOption
             title='Profile'
             setMenuOption={setMenuOption}
@@ -28,7 +28,7 @@ const SettingsPage = () => {
             active={menuOption.profile}
             onClick={() => setMenuOption({ profile: true, admin: false })}
           />
-        </li>
+        </li> */}
         {user.isAdmin && (
           <li>
             <MenuOption
@@ -41,7 +41,7 @@ const SettingsPage = () => {
           </li>
         )}
       </ul>
-      {menuOption.profile && <Profile user={user} />}
+      {/* {menuOption.profile && <Profile user={user} />} */}
       {/* {menuOption.profile && <AvatarCropper user={user.photoUrl} />} */}
       {menuOption.admin && <AdminSettings />}
     </div>
