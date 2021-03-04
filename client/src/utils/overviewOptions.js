@@ -9,6 +9,17 @@ export const callsOptions = {
   maintainAspectRatio: false,
 };
 
+export const taskCountOptions = {
+  title: {
+    display: true,
+    text: 'Task Count',
+    fontSize: 18,
+  },
+  responsive: true,
+  maintainAspectRatio: false,
+  legend: { display: false },
+};
+
 export const casesOptions = {
   title: {
     display: true,

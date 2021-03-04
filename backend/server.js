@@ -22,6 +22,7 @@ app.use('/api/categories', require('./routes/categoryRoutes'));
 app.use('/api/solutions', require('./routes/solutionRoutes'));
 app.use('/api/cases', require('./routes/caseRoutes'));
 app.use('/api/messages', require('./routes/messageRoutes'));
+app.use('/api/reports', require('./routes/reportRoutes'))
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));

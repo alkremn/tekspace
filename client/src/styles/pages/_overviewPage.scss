@@ -6,6 +6,12 @@
   width: calc(100% - 20px);
   height: calc(100vh - 80px);
   margin: 10px 10px 0;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.overview::-webkit-scrollbar {
+  display: none;
 }
 
 .overview__info {
@@ -34,9 +40,9 @@
   overflow: hidden;
 }
 
-.overview__someContainer {
+.overview__taskCountContainer {
   grid-row: 2;
-  grid-column: 6 / span 3;
+  grid-column: 6 / span 4;
   background: #fff;
   border-radius: 5px;
   padding-bottom: 10px;
@@ -44,7 +50,7 @@
 }
 
 .overview__casesContainer {
-  grid-column: 9 / span 4;
+  grid-column: 10 / span 3;
   display: flex;
   border: 1px solid rgba(6, 8, 9, 0.16);
   justify-content: space-between;

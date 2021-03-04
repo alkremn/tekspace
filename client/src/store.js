@@ -7,6 +7,7 @@ import solutionsReducer from './reducers/solutionsReducer';
 import usersReducer from './reducers/usersReducer';
 import messagesReducer from './reducers/messagesReducer';
 import casesReducer from './reducers/casesReducer';
+import reportReducer from './reducers/reportReducer';
 
 const rootReducer = combineReducers({
   async: asyncReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   users: usersReducer,
   messages: messagesReducer,
   cases: casesReducer,
+  report: reportReducer,
 });
 
 const initialState = {

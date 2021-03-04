@@ -82,7 +82,7 @@ const Navbar = ({ setTitle }) => {
             Icon={BsChatDotsFill}
           />
         </li>
-        {user.isAdmin && (
+        {/* {user.isAdmin && (
           <li>
             <Link
               to='/reports'
@@ -91,7 +91,7 @@ const Navbar = ({ setTitle }) => {
               Icon={MdAssignment}
             />
           </li>
-        )}
+        )} */}
         <li>
           <Link
             to='/settings'

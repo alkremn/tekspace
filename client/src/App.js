@@ -24,6 +24,7 @@ import SettingsPage from './app/pages/SettingsPage';
 // Socket.io
 import socket from './utils/socket';
 import { withRouter } from 'react-router-dom';
+import { fetchReportAction } from './actions/reportActions';
 
 function App({ history }) {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function App({ history }) {
 
   useEffect(() => {
     const fetchData = async () => {
+      dispatch(fetchReportAction());
       dispatch(fetchUsersAction());
       dispatch(fetchSolutionsAction());
       dispatch(fetchCasesAction());
