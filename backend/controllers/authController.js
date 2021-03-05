@@ -39,6 +39,10 @@ exports.loginWithGoogle = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ gmail: email });
   if (user) {
+    if(!user.photoUrl){
+      user.photoUrl = picture;
+      await user.save();
+    }
     res.json({
       _id: user._id,
       name: user.name,
