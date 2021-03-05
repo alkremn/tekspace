@@ -20,7 +20,7 @@ const SettingsPage = () => {
   return (
     <div className='settings'>
       <ul className='settings__menu'>
-        {/* <li>
+        <li>
           <MenuOption
             title='Profile'
             setMenuOption={setMenuOption}
@@ -28,7 +28,7 @@ const SettingsPage = () => {
             active={menuOption.profile}
             onClick={() => setMenuOption({ profile: true, admin: false })}
           />
-        </li> */}
+        </li>
         {user.isAdmin && (
           <li>
             <MenuOption
@@ -41,7 +41,7 @@ const SettingsPage = () => {
           </li>
         )}
       </ul>
-      {/* {menuOption.profile && <Profile user={user} />} */}
+      {menuOption.profile && <Profile user={user} />}
       {/* {menuOption.profile && <AvatarCropper user={user.photoUrl} />} */}
       {menuOption.admin && <AdminSettings />}
     </div>

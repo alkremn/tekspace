@@ -20,7 +20,12 @@ const Profile = ({ user }) => {
         </div>
 
         <div className='profile_name'>
+          <span>Name:</span>
           <p>{user.name}</p>
+        </div>
+        <div className='profile_name'>
+          <span>Email:</span>
+          <p>{user.email}</p>
         </div>
       </div>
       <Modal size='small' open={open} onClose={() => setOpen(false)}>

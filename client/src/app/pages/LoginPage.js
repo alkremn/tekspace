@@ -8,7 +8,7 @@ import { FcGoogle } from 'react-icons/fc';
 // Components
 import Button from '../components/common/Button';
 import { motion } from 'framer-motion';
-import { FormControl, TextField, Snackbar } from '@material-ui/core';
+import { FormControl, TextField } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import GoogleLogin from 'react-google-login';
 // Actions
@@ -39,6 +39,7 @@ const LoginPage = ({ history }) => {
     validationSchema: validationSchema,
     onSubmit: values => {
       dispatch(loginAction(values));
+      history.push('/overview');
     },
   });
 
@@ -46,7 +47,8 @@ const LoginPage = ({ history }) => {
   const responseGoogle = response => {
     console.log(response);
     if (response.googleId) {
-      dispatch(loginWithGoogleAction(response));
+      dispatch(loginWithGoogleAction(response, history));
+      history.push('/overview');
     }
   };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles/app.scss';
 // Router
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 // Actions
@@ -48,7 +48,6 @@ function App({ history }) {
       socket.on('users', users => {
         dispatch(addConnectedUsersAction(users));
       });
-      //history.push('overview');
     }
     return () => socket.disconnect();
   }, [user, dispatch, history]);
