@@ -45,50 +45,48 @@ const AdminSettings = () => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {users
-            .filter(u => u._id !== user._id)
-            .map(user => (
-              <Table.Row key={user._id}>
-                <Table.Cell>
-                  <div className='adminSettings__userName'>
-                    <Avatar
-                      src={user.photoUrl}
-                      style={{ width: '30px', height: '30px' }}
-                    >
-                      {initials(user.name)}
-                    </Avatar>
-                    <span>{user.name}</span>
-                  </div>
-                </Table.Cell>
-                <Table.Cell>{user.email}</Table.Cell>
-                <Table.Cell>{user.gmail}</Table.Cell>
-                <Table.Cell>
-                  <Checkbox
-                    name='second'
-                    checked={user.isSecond}
-                    onChange={e => handleChange(e, user._id)}
-                    color='primary'
-                  />
-                </Table.Cell>
-                <Table.Cell>
-                  <Checkbox
-                    name='isAdmin'
-                    checked={user.isAdmin}
-                    onChange={e => handleChange(e, user._id)}
-                  />
-                </Table.Cell>
-                <Table.Cell>
-                  <IconButton
-                    onClick={() => {
-                      setSelectedUserId(user._id);
-                      setOpen(true);
-                    }}
+          {users.map(user => (
+            <Table.Row key={user._id}>
+              <Table.Cell>
+                <div className='adminSettings__userName'>
+                  <Avatar
+                    src={user.photoUrl}
+                    style={{ width: '30px', height: '30px' }}
                   >
-                    <DeleteIcon />
-                  </IconButton>
-                </Table.Cell>
-              </Table.Row>
-            ))}
+                    {initials(user.name)}
+                  </Avatar>
+                  <span>{user.name}</span>
+                </div>
+              </Table.Cell>
+              <Table.Cell>{user.email}</Table.Cell>
+              <Table.Cell>{user.gmail}</Table.Cell>
+              <Table.Cell>
+                <Checkbox
+                  name='second'
+                  checked={user.isSecond}
+                  onChange={e => handleChange(e, user._id)}
+                  color='primary'
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Checkbox
+                  name='isAdmin'
+                  checked={user.isAdmin}
+                  onChange={e => handleChange(e, user._id)}
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <IconButton
+                  onClick={() => {
+                    setSelectedUserId(user._id);
+                    setOpen(true);
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Table.Cell>
+            </Table.Row>
+          ))}
         </Table.Body>
       </Table>
       <Modal size='mini' open={open} onClose={() => setOpen(false)}>
